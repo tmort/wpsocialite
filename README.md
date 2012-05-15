@@ -1,4 +1,6 @@
-# Socialite
+# WPSocialite
+
+This plugin adds the SocialiteJS Functionailty (Developed by David Bushell[http://dbushell.com/]) to Wordpress. Original readme is as follows:
 
 ### Because if you're selling your soul, you may as well do it asynchronously.
 
