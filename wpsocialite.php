@@ -146,9 +146,19 @@ if (!class_exists("wpsocialite")) {
 		
 		function wpsocialite_add_to_content( $content )
 		{
-							
-			$content .= $this->wpsocialite_markup();
 			
+			$position = get_option('wpsocialite_position');
+
+			if($position == 'before') {
+							
+				$content = $this->wpsocialite_markup() . $content;
+			
+			} elseif($position = 'after'){
+
+				$content .= $this->wpsocialite_markup();
+
+			}
+
 			return $content;
 
 
@@ -199,6 +209,14 @@ if (!class_exists("wpsocialite_options")) {
 				);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_style' );
 
+			add_settings_field(
+				$id = 'wpsocialite_position',
+				$title = "WPSocialite Position",
+				$callback = array( &$this, 'wpsocialite_position' ),
+				$page = 'discussion'
+				);
+			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_position' );
+
 		} // function
 	
 		function wpsocialite_mode()
@@ -223,6 +241,34 @@ if (!class_exists("wpsocialite_options")) {
 						'.$options.'
 					</select>
 					Choose the type of socialite style you would like to use.
+				</label>';
+			
+
+
+		} // function
+
+		function wpsocialite_position()
+		{
+			$value = get_option('wpsocialite_position');
+			# echo your form fields here containing the value received from get_option
+			
+			if($value == 'before'){
+			$options = '<option value="before" selected="selected">Before</option>
+						<option value="after">After</option>';
+			
+			} elseif($value == 'after'){
+			$options = '<option value="before">Before</option>
+						<option value="after" selected="selected">After</option>';
+			} else {
+			$options = '<option value="before" selected="selected">Before</option>
+						<option value="after">After</option>';			
+			}
+			
+			echo '<label for="wpsocialite_position">
+					<select name="wpsocialite_position" id="wpsocialite_position">
+						'.$options.'
+					</select>
+					Choose where you would like the social icons to appear, before or after the main content.
 				</label>';
 			
 
