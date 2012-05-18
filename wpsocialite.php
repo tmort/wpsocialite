@@ -69,7 +69,7 @@ if (!class_exists("wpsocialite")) {
 			$value = get_option('wpsocialite_classes');
 			
 			if($value == ''){
-				$value = 'article.post, .post, .page';
+				$value = 'article.post, .post, .page, .social-buttons';
 			}
 
 			$script = "<script type=\"text/javascript\"> var thePostClasses = '$value'; </script>\n";
@@ -106,7 +106,7 @@ if (!class_exists("wpsocialite")) {
 		} // wpsocialite_enqueue_scripts
 		
 		
-		function wpsocialite_markup() 
+		function wpsocialite_markup($size = null) 
 		{
 			global $wp_query;
 			$post = $wp_query->post; //get post content
@@ -132,15 +132,11 @@ if (!class_exists("wpsocialite")) {
 			</ul>
 			';
 
-			$value = get_option('wpsocialite_style');
-
-			if($value == 'small'){
+			if($size == 'small'){
 				return $return_social_small;
 			} else {
 				return $return_social_large;
 			}
-
-
 
 		} 
 		
@@ -149,18 +145,28 @@ if (!class_exists("wpsocialite")) {
 			
 			$position = get_option('wpsocialite_position');
 
-			if($position == 'before') {
-							
-				$content = $this->wpsocialite_markup() . $content;
-			
-			} elseif($position = 'after'){
+			$size = get_option('wpsocialite_style');
 
-				$content .= $this->wpsocialite_markup();
+			switch($position){
 
+				case 'manual':
+					//nada
+				break;
+
+				case 'before':
+
+					$content = $this->wpsocialite_markup($size) . $content;
+				
+				break;
+
+				case 'after':
+	
+					$content .= $this->wpsocialite_markup($size);
+
+				break;
 			}
 
 			return $content;
-
 
 		}
 		
@@ -254,14 +260,20 @@ if (!class_exists("wpsocialite_options")) {
 			
 			if($value == 'before'){
 			$options = '<option value="before" selected="selected">Before</option>
-						<option value="after">After</option>';
-			
+						<option value="after">After</option>
+						<option value="manual">Manual</option>';
 			} elseif($value == 'after'){
 			$options = '<option value="before">Before</option>
-						<option value="after" selected="selected">After</option>';
+						<option value="after" selected="selected">After</option>
+						<option value="manual">Manual</option>';
+			} elseif($value == 'manual'){
+			$options = '<option value="before">Before</option>
+						<option value="after">After</option>
+						<option value="manual" selected="selected">Manual</option>';
 			} else {
 			$options = '<option value="before" selected="selected">Before</option>
-						<option value="after">After</option>';			
+						<option value="after">After</option>
+						<option value="manual">Manual</option>';
 			}
 			
 			echo '<label for="wpsocialite_position">
@@ -303,7 +315,7 @@ if (!class_exists("wpsocialite_options")) {
 		{
 			$value = get_option('wpsocialite_classes');
 			if($value == ''){
-				$value = 'article.post, .post, .page';
+				$value = 'article.post, .post, .page, .social-buttons';
 			}
 			# echo your form fields here containing the value received from get_option
 			
@@ -319,7 +331,7 @@ if (!class_exists("wpsocialite_options")) {
 			if (!$this_plugin) $this_plugin = plugin_basename(__FILE__);
 
 			if ($file == $this_plugin){
-				$settings_link = '<a href="options-discussion.php#wpsocialite_mode">'.__("Settings", "photosmash-galleries").'</a>';
+				$settings_link = '<a href="options-discussion.php#wpsocialite_mode">'.__("Settings", "wpsocialite").'</a>';
 				array_unshift($links, $settings_link);
 			}
 			return $links;
@@ -331,4 +343,4 @@ if (!class_exists("wpsocialite_options")) {
 } //End if class exists
 
 
-new wpsocialite;
+$wpsocialite = new wpsocialite;
