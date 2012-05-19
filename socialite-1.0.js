@@ -82,7 +82,7 @@ window.Socialite = (function()
 		if (typeof context.getElementsByClassName === 'function') {
 			return context.getElementsByClassName(name);
 		}
-		var	elems = [], all = context.getElementsByTagName('*'), len = all.length;
+		var elems = [], all = context.getElementsByTagName('*'), len = all.length;
 		for (var i = 0; i < len; i++) {
 			var cname = ' ' + all[i].className + ' ';
 
@@ -251,10 +251,17 @@ window.Socialite = (function()
 		} else {
 			//if (typeof window.twttr === 'object') {
 			var src = '//platform.twitter.com/widgets/tweet_button.html?';
+<<<<<<< HEAD
 			src += _socialite.getDataAttributes(instance.elem, true);
 			var iframe = _socialite.createIFrame(src);
 			instance.button.replaceChild(iframe, instance.elem);
 			_socialite.onLoad(instance);
+=======
+			src += _socialite.getDataAttributes(elem);
+			var iframe = _socialite.createIFrame(src);
+			button.replaceChild(iframe, elem);
+			//}
+>>>>>>> hmm
 		}
 	}, '//platform.twitter.com/widgets.js');
 
@@ -290,12 +297,19 @@ window.Socialite = (function()
 			// XFBML is nasty! use an iframe instead :)
 			//if (typeof FB.XFBML.parse === 'function')
 			//	FB.XFBML.parse(el);
+<<<<<<< HEAD
 			//}
 			var src = '//www.facebook.com/plugins/like.php?';
 			src += _socialite.getDataAttributes(instance.elem, true);
 			var iframe = _socialite.createIFrame(src);
 			instance.button.replaceChild(iframe, instance.elem);
 			_socialite.onLoad(instance);
+=======
+			var src = '//www.facebook.com/plugins/like.php?';
+			src += _socialite.getDataAttributes(elem);
+			var iframe = _socialite.createIFrame(src);
+			button.replaceChild(iframe, elem);
+>>>>>>> hmm
 		}
 	}, '//connect.facebook.net/en_US/all.js#xfbml=1');
 
