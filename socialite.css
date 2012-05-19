@@ -1,0 +1,39 @@
+.cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+* html .cf { zoom: 1; }
+*:first-child+html .cf { zoom: 1; }
+
+body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 1.25em; font-size: 100%; line-height: 1;  -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+h1 { font-size: 2.5em; line-height: 1.333em; margin: 0 0 0.5em 0; }
+h2 { font-size: 1.25em; line-height: 1.333em; margin: 0.5em 0; }
+
+
+#intro p, #intro li { font-size: 1em; line-height: 1.5em; margin: 0 0 0.5em 0; }
+#intro li { margin: 0 0 0.25em 0; }
+
+#social { display: block; list-style: none; padding: 0; margin: 20px; }
+#social > li { display: block; margin: 0; padding: 10px; float: left; }
+
+
+/*
+ * Socialite
+ */
+
+#social .socialite,
+#social .socialised
+{ display: block; position: relative; overflow: hidden; background: url('images/social-sprite.png') 0 0 no-repeat; }
+
+/* visually hidden from HTML5 Boilerplate */
+#social .socialite span { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* fallback for default and non-loaded instances */
+#social .twitter { width: 55px; height: 65px; background-position: 0 0; }
+#social .plusone { width: 50px; height: 65px; background-position: -75px 0; }
+#social .facebook { width: 50px; height: 65px; background-position: -145px 0; }
+#social .linkedin { width: 60px; height: 65px; background-position: -215px 0; }
+#social .stumbleupon { width: 50px; height: 65px; background-position: -295px 0; }
+
+#social .socialite-loaded { background: none !important; }
+
+#social .socialite-button { display: none; opacity: 0; }
+#social .socialite-loaded .socialite-button { display: block; opacity: 1; }
