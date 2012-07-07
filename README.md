@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # WPSocialite
 
 This plugin adds the SocialiteJS Functionailty (Developed by David Bushell[http://dbushell.com/]) to Wordpress. 
@@ -77,4 +76,4 @@ Be kind! Provide an element to search within using `context` rather than the who
 	Socialite.extend('network', function);
 
 With `extend` you can add more social networks! The `function` is called by `Socialite.load` and `Socialite.activate` to replace the default element with the shiny sharing button. 
->>>>>>> conflictissue
+
