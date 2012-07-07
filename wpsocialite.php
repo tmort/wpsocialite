@@ -143,7 +143,7 @@ if (!class_exists("wpsocialite")) {
 				</li>
 				<li>
 					<a href="http://pinterest.com/pin/create/button/?url='.$postlink.'&amp;media=&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical">
-				    	<span class="vhidden">Pin It!</span>
+						<span class="vhidden">Pin It!</span>
 					</a>
 				</li>
 
@@ -158,7 +158,7 @@ if (!class_exists("wpsocialite")) {
 				<li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$postlink.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$postlink.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a></li>
 				<li>
 					<a href="http://pinterest.com/pin/create/button/?url=http://socialitejs.com/&amp;media=http://socialitejs.com/images/logo.png&amp;description=Socialite.js" class="socialite pinterest-pinit" data-count-layout="horizontal">
-				    	<span class="vhidden">Pin It!</span>
+						<span class="vhidden">Pin It!</span>
 					</a>
 				</li>
 			</ul>
