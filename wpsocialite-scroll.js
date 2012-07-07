@@ -1,7 +1,6 @@
 jQuery(function($) {
 
-	//alert('test');
-	
+
 		var	articles = $(thePostClasses), socialised = { }, win = $(window), updateArticles, onUpdate, updateTimeout;
 
 		updateArticles = function()
@@ -45,6 +44,4 @@ jQuery(function($) {
 
 		setTimeout(updateArticles, 100);
 
-
-	
 });//theend
