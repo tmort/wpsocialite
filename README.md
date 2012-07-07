@@ -8,7 +8,6 @@ You can download the plugin in the Wordpress Plugin Repo here: [http://wordpress
 
 Original SocialJS Author: David Bushell [http://dbushell.com](http://dbushell.com/) [@dbushell](http://twitter.com/dbushell/)
 
-Copyright © 2012
 
 ## Setup
 
