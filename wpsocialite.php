@@ -152,7 +152,7 @@ if (!class_exists("wpsocialite")) {
 
 			$return_social_small = '
 			<ul id="social2" class="social-buttons cf">
-				<li><a href="http://twitter.com/share" class="socialite twitter-share" data-text="Socialite.js" data-url="'.$postlink.'" data-count="horizontal" data-via="dbushell" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a></li>
+				<li><a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$postlink.'" data-count="horizontal" data-via="dbushell" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a></li>
 				<li><a href="https://plus.google.com/share?url='.$postlink.'" class="socialite googleplus-one" data-size="medium" data-href="'.$postlink.'" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a></li>
 				<li><a href="http://www.facebook.com/sharer.php?u=http://www.socialitejs.com&amp;t=Socialite.js" class="socialite facebook-like" data-href="'.$postlink.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a></li>
 				<li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$postlink.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$postlink.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a></li>
