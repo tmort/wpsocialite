@@ -1,0 +1,3 @@
+[submodule "Socialite"]
+	path = Socialite
+	url = git://github.com/dbushell/Socialite.git
