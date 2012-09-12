@@ -32,9 +32,6 @@ define( 'WPSOCIALITE_PATH', plugin_dir_path(__FILE__) );
 define( 'WPSOCIALITE_URL_SOCIALITE', plugin_dir_url(__FILE__).'Socialite' );
 define( 'WPSOCIALITE_URL_IMG', plugin_dir_url(__FILE__).'Socialite/demo/images' );
 
-
-
-
 if (!class_exists("wpsocialite")) {
 
 	class wpsocialite {
@@ -119,56 +116,28 @@ if (!class_exists("wpsocialite")) {
 			$postlink = get_permalink($id); //get post link
 			$title = trim($post->post_title); // get post title
 
-			$return = '
-			<ul id="social" class="social-buttons cf">
-				<li>
-					<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$postlink.'" data-count="vertical" rel="nofollow" target="_blank">
-						<span class="vhidden">Share on Twitter</span>
-					</a>
-				</li>
-				<li>
-					<a href="https://plus.google.com/share?url='.$postlink.'" class="socialite googleplus-one" data-size="tall" data-href="'.$postlink.'" rel="nofollow" target="_blank">
-						<span class="vhidden">Share on Google+</span>
-					</a>
-				</li>
-				<li>
-					<a href="http://www.facebook.com/sharer.php?u='.$postlink.'&amp;t='.$title.'" class="socialite facebook-like" data-href="'.$postlink.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank">
-						<span class="vhidden">Share on Facebook</span>
-					</a>
-				</li>
-				<li>
-					<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$postlink.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$postlink.'" data-counter="top" rel="nofollow" target="_blank">
-						<span class="vhidden">Share on LinkedIn</span>
-					</a>
-				</li>
-				<li>
-					<a href="http://pinterest.com/pin/create/button/?url='.$postlink.'&amp;media=&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical">
-						<span class="vhidden">Pin It!</span>
-					</a>
-				</li>
+			$value = get_option('wpsocialite_networkoptions');
+			$buttons = WPSocialite_Options::wpsocialite_list_network_options($postlink, $title, $size);
 
-			</ul>
-			';
+			$return = '';
 
-			$return_social_small = '
-			<ul id="social2" class="social-buttons cf">
-				<li><a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$postlink.'" data-count="horizontal" data-via="dbushell" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a></li>
-				<li><a href="https://plus.google.com/share?url='.$postlink.'" class="socialite googleplus-one" data-size="medium" data-href="'.$postlink.'" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a></li>
-				<li><a href="http://www.facebook.com/sharer.php?u=http://www.socialitejs.com&amp;t=Socialite.js" class="socialite facebook-like" data-href="'.$postlink.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a></li>
-				<li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$postlink.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$postlink.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a></li>
-				<li>
-					<a href="http://pinterest.com/pin/create/button/?url=http://socialitejs.com/&amp;media=http://socialitejs.com/images/logo.png&amp;description=Socialite.js" class="socialite pinterest-pinit" data-count-layout="horizontal">
-						<span class="vhidden">Pin It!</span>
-					</a>
-				</li>
-			</ul>
-			';
+			$return .= '<ul id="'.$size.'" class="social-buttons cf">';
 
-			if($size == 'small'){
-				return $return_social_small;
-			} else {
-				return $return;
+			foreach ($buttons as $button){
+				if(isset($value[$button['slug']])) :
+					$markup = 'markup_'.$size;
+				else :
+					continue;
+				endif;
+
+
+				$return .= '<li>'.$button[$markup].'</li>';
 			}
+
+			$return .= '</ul>';
+
+			return $return;
+
 
 		}
 
@@ -254,6 +223,23 @@ if (!class_exists("wpsocialite_options")) {
 				$page = 'discussion'
 				);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_position' );
+
+			add_settings_field(
+				$id = 'wpsocialite_position',
+				$title = "WPSocialite Position",
+				$callback = array( &$this, 'wpsocialite_position' ),
+				$page = 'discussion'
+				);
+			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_position' );
+
+			add_settings_field(
+				$id = 'wpsocialite_networkoptions',
+				$title = "WPSocialite Options",
+				$callback = array( &$this, 'wpsocialite_networkoptions' ),
+				$page = 'discussion'
+				);
+			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_networkoptions' );
+
 
 		} // function
 
@@ -358,6 +344,75 @@ if (!class_exists("wpsocialite_options")) {
 
 		} // function
 
+		function wpsocialite_networkoptions(){
+
+			$value = get_option('wpsocialite_networkoptions');
+			$buttons = $this->wpsocialite_list_network_options();
+			$output = '';
+			foreach ($buttons as $button){
+				if(isset($value[$button['slug']])) :
+					$buttonvalue = $value[$button['slug']];
+				else :
+					$buttonvalue = 0;
+				endif;
+
+				if($buttonvalue == 1) :
+					$checked = 'checked';
+				else :
+					$checked = '';
+				endif;
+
+				$output .= '
+				<label for="wpsocialite_networkoptions['.$button['slug'].']">
+					<input name="wpsocialite_networkoptions['.$button['slug'].']" type="checkbox" id="wpsocialite_networkoptions['.$button['slug'].']" value="1" '.$checked.'>
+					'.$button['name'].'
+				</label><br />';
+			}
+
+			echo 'Select the social networks to display.<br />
+				'.$output.'
+			';
+
+		}
+
+		function wpsocialite_list_network_options($link = null, $title = null, $size = null) {
+			$buttons = array(
+				'facebook' => array(
+					'name' => 'Facebook',
+					'slug' => 'facebook',
+					'markup_large' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;t='.$title.'" class="socialite facebook-like" data-href="'.$link.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a>',
+					'markup_small' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;t='.$title.'" class="socialite facebook-like" data-href="'.$link.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a>'
+				),
+				'twitter' => array(
+					'name' => 'Twitter',
+					'slug' => 'twitter',
+					'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="vertical" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>',
+					'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" data-via="dbushell" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>'
+				),
+				'gplus' => array(
+					'name' => 'Google Plus',
+					'slug' => 'gplus',
+					'markup_large' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="tall" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a>',
+					'markup_small' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="medium" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a>'
+				),
+				'linkedin' => array(
+					'name' => 'Linkedin',
+					'slug' => 'linkedin',
+					'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
+					'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>'
+				),
+				'pintrest' => array(
+					'name' => 'Pintrest',
+					'slug' => 'pintrest',
+					'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a>',
+					'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">Pin It!</span></a>'
+				),
+			);
+
+			return $buttons;
+		}
+
+
 		function wpsocialite_settings_link($links, $file) {
 			static $this_plugin;
 			if (!$this_plugin) $this_plugin = plugin_basename(__FILE__);
@@ -368,7 +423,6 @@ if (!class_exists("wpsocialite_options")) {
 			}
 			return $links;
 		}
-
 
 	} // class
 
