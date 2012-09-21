@@ -4,7 +4,7 @@ Plugin Name: WPSocialite
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialte/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 0.9
+Version: 1.3
 Author URI: http://twmorton.com/
 
 This plugin uses the Socialitejs library created by David Bushell. The author of this plugin does not wish to claim this tool as his own but ensure that David gets proper credit for his work. I've simply wrapped his fantastic tool into a Wordpress plugin for us all to use. Please be sure to check him out: @dbushell or '.$postlink.'
@@ -121,7 +121,7 @@ if (!class_exists("wpsocialite")) {
 
 			$return = '';
 
-			$return .= '<ul id="'.$size.'" class="social-buttons cf">';
+			$return .= '<ul class="'.$size.'" class="social-buttons cf">';
 
 			foreach ($buttons as $button){
 				if(isset($value[$button['slug']])) :
@@ -137,7 +137,6 @@ if (!class_exists("wpsocialite")) {
 			$return .= '</ul>';
 
 			return $return;
-
 
 		}
 
