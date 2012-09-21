@@ -49,6 +49,8 @@ if (!class_exists("wpsocialite")) {
 
 			add_action( 'wp_head', array( &$this, 'wpsocialite_vardefine_head' ) );
 
+			add_filter( 'body_class', array( &$this, 'wpsocialite_body_class' ) );
+
 			add_filter( 'the_content', array( &$this, 'wpsocialite_add_to_content' ) );
 
 		} // __construct
@@ -77,23 +79,32 @@ if (!class_exists("wpsocialite")) {
 
 			echo $script;
 		}
+		function wpsocialite_body_class($classes) 
+		{
+			$value = get_option('wpsocialite_mode');
+			
+			if(!is_admin() && $value == 'scroll' ){
+				
+				$classes[] = 'wpsocialite-scroll';
+					
+			}			
+			
+			return $classes;
+			
+		}		
 		function wpsocialite_enqueue_scripts()
 		{
 			if(!is_admin()){
 
 				wp_enqueue_script('socialite-lib', WPSOCIALITE_URL_SOCIALITE.'/socialite.min.js', array('jquery'), '1.0', true);
 				wp_enqueue_script('socialite-pinterest', WPSOCIALITE_URL_SOCIALITE.'/extensions/socialite.pinterest.js', array('jquery'), '1.0', true);
-
-				$value = get_option('wpsocialite_mode');
-				if($value == 'scroll'){
-					wp_enqueue_script('wpsocialite-scroll', WPSOCIALITE_URL.'/wpsocialite-scroll.js', array('jquery'), '1.0', true);
-				}else{
-					wp_enqueue_script('wpsocialite-scroll', WPSOCIALITE_URL.'/wpsocialite-hover.js', array('jquery'), '1.0', true);
-				}
+				
+				wp_enqueue_script('wpsocialite', WPSOCIALITE_URL.'wpsocialite.js', array('jquery'), '1.0', true);
 
 			}// if is admin
 
-		} // wpsocialite_enqueue_scripts
+		} // wpsocialite_enqueue_scripts()
+				
 
 		function wpsocialite_enqueue_styles()
 		{
@@ -400,9 +411,9 @@ if (!class_exists("wpsocialite_options")) {
 					'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
 					'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>'
 				),
-				'pintrest' => array(
-					'name' => 'Pintrest',
-					'slug' => 'pintrest',
+				'pinterest' => array(
+					'name' => 'Pinterest',
+					'slug' => 'pinterest',
 					'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a>',
 					'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">Pin It!</span></a>'
 				),
