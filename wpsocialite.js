@@ -1,6 +1,6 @@
 jQuery(function($) {
 
-	//alert('test');
+	if ( $("body").hasClass("wpsocialite-scroll") ) { //If set to 'scroll'
 	
 		var	articles = $(thePostClasses), socialised = { }, win = $(window), updateArticles, onUpdate, updateTimeout;
 
@@ -44,7 +44,13 @@ jQuery(function($) {
 		win.on('resize', onUpdate).on('scroll', onUpdate);
 
 		setTimeout(updateArticles, 100);
-
-
+		
+	} else { //If not set to 'scroll', default to hover
 	
+		$(thePostClasses).one('mouseenter', function(){
+			Socialite.load($(this)[0]);
+		});		
+		
+	}
+
 });//theend
