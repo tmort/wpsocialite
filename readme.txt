@@ -1,10 +1,10 @@
-=== Plugin Name ===
+=== WPSocialite ===
 Contributors: TM3909
-Donate link: http://twmorton.com/plugins/?donate=true
+Donate link:
 Tags: social networking, sharing links, tm3909
 Requires at least: 3.0
-Tested up to: 3.0
-Stable tag: 1.1
+Tested up to: 3.4.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,14 @@ When using this method, be sure to include "large" or "small" inside the functio
 3. Plugin settings, located in Settings->Discussion
 
 == Changelog ==
+
+= 1.3 =
+* Major Bugfix, CSS ID calls causing feed issues. Changed to classes.
+
+
+= 1.2 =
+* Added ability to enable/disable different social networks. Choose which to display!
+* General repository and plugin cleanup.
 
 = 1.1 =
 * Updated to latest version of SocialiteJS

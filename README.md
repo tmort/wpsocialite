@@ -4,7 +4,8 @@ This plugin adds the SocialiteJS Functionailty (Developed by David Bushell[http:
 
 Author: Tom Morton [http://twmorton.com](http://twmorton.com/) [@tmort](http://twitter.com/tmort/)
 
-You can download the plugin in the Wordpress Plugin Repo here: [http://wordpress.org/extend/plugins/wpsocialite/stats/](http://wordpress.org/extend/plugins/wpsocialite/stats/)
+
+You can download the plugin in the Wordpress Plugin Repo here: [http://wordpress.org/extend/plugins/wpsocialite/](http://wordpress.org/extend/plugins/wpsocialite/)
 
 Original SocialJS Author: David Bushell [http://dbushell.com](http://dbushell.com/) [@dbushell](http://twitter.com/dbushell/)
 
@@ -71,5 +72,5 @@ Be kind! Provide an element to search within using `context` rather than the who
 
 	Socialite.extend('network', function);
 
-With `extend` you can add more social networks! The `function` is called by `Socialite.load` and `Socialite.activate` to replace the default element with the shiny sharing button.
 
+With `extend` you can add more social networks! The `function` is called by `Socialite.load` and `Socialite.activate` to replace the default element with the shiny sharing button.
