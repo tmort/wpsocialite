@@ -1,10 +1,14 @@
 <?php
 /*
 Plugin Name: WPSocialite
+<<<<<<< HEAD
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialte/
+=======
+Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
+>>>>>>> b6d11914b804a2bc37cb19c258eec74aa2df59b4
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 0.9
+Version: 1.3
 Author URI: http://twmorton.com/
 
 This plugin uses the Socialitejs library created by David Bushell. The author of this plugin does not wish to claim this tool as his own but ensure that David gets proper credit for his work. I've simply wrapped his fantastic tool into a Wordpress plugin for us all to use. Please be sure to check him out: @dbushell or '.$postlink.'
@@ -49,6 +53,8 @@ if (!class_exists("wpsocialite")) {
 
 			add_action( 'wp_head', array( &$this, 'wpsocialite_vardefine_head' ) );
 
+			add_filter( 'body_class', array( &$this, 'wpsocialite_body_class' ) );
+
 			add_filter( 'the_content', array( &$this, 'wpsocialite_add_to_content' ) );
 
 		} // __construct
@@ -77,6 +83,19 @@ if (!class_exists("wpsocialite")) {
 
 			echo $script;
 		}
+		function wpsocialite_body_class($classes)
+		{
+			$value = get_option('wpsocialite_mode');
+
+			if(!is_admin() && $value == 'scroll' ){
+
+				$classes[] = 'wpsocialite-scroll';
+
+			}
+
+			return $classes;
+
+		}
 		function wpsocialite_enqueue_scripts()
 		{
 			if(!is_admin()){
@@ -84,16 +103,12 @@ if (!class_exists("wpsocialite")) {
 				wp_enqueue_script('socialite-lib', WPSOCIALITE_URL_SOCIALITE.'/socialite.min.js', array('jquery'), '1.0', true);
 				wp_enqueue_script('socialite-pinterest', WPSOCIALITE_URL_SOCIALITE.'/extensions/socialite.pinterest.js', array('jquery'), '1.0', true);
 
-				$value = get_option('wpsocialite_mode');
-				if($value == 'scroll'){
-					wp_enqueue_script('wpsocialite-scroll', WPSOCIALITE_URL.'/wpsocialite-scroll.js', array('jquery'), '1.0', true);
-				}else{
-					wp_enqueue_script('wpsocialite-scroll', WPSOCIALITE_URL.'/wpsocialite-hover.js', array('jquery'), '1.0', true);
-				}
+
+				wp_enqueue_script('wpsocialite', WPSOCIALITE_URL.'wpsocialite.js', array('jquery'), '1.0', true);
 
 			}// if is admin
 
-		} // wpsocialite_enqueue_scripts
+		} // wpsocialite_enqueue_scripts()
 
 		function wpsocialite_enqueue_styles()
 		{
@@ -120,8 +135,7 @@ if (!class_exists("wpsocialite")) {
 			$buttons = WPSocialite_Options::wpsocialite_list_network_options($postlink, $title, $size);
 
 			$return = '';
-
-			$return .= '<ul id="'.$size.'" class="social-buttons cf">';
+			$return .= '<ul class="wpsocialite social-buttons '.$size.'">';
 
 			foreach ($buttons as $button){
 				if(isset($value[$button['slug']])) :
@@ -400,9 +414,10 @@ if (!class_exists("wpsocialite_options")) {
 					'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
 					'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>'
 				),
-				'pintrest' => array(
-					'name' => 'Pintrest',
-					'slug' => 'pintrest',
+
+				'pinterest' => array(
+					'name' => 'Pinterest',
+					'slug' => 'pinterest',
 					'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a>',
 					'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">Pin It!</span></a>'
 				),
