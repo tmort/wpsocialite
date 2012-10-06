@@ -51,6 +51,10 @@ if (!class_exists("wpsocialite")) {
 
 			add_filter( 'the_content', array( &$this, 'wpsocialite_add_to_content' ) );
 
+			if( get_option('wpsocialite_excerpt') == 1 ){
+				add_filter( 'the_excerpt', array( &$this, 'wpsocialite_add_to_content' ) );
+			}
+
 		} // __construct
 
 		function admin_init()
@@ -82,13 +86,16 @@ if (!class_exists("wpsocialite")) {
 			if(!is_admin()){
 
 				wp_enqueue_script('socialite-lib', WPSOCIALITE_URL_SOCIALITE.'/socialite.min.js', array('jquery'), '1.0', true);
-				wp_enqueue_script('socialite-pinterest', WPSOCIALITE_URL_SOCIALITE.'/extensions/socialite.pinterest.js', array('jquery'), '1.0', true);
 
-				$value = get_option('wpsocialite_mode');
-				if($value == 'scroll'){
-					wp_enqueue_script('wpsocialite-scroll', WPSOCIALITE_URL.'/wpsocialite-scroll.js', array('jquery'), '1.0', true);
-				}else{
-					wp_enqueue_script('wpsocialite-scroll', WPSOCIALITE_URL.'/wpsocialite-hover.js', array('jquery'), '1.0', true);
+				wp_enqueue_script('wpsocialite', WPSOCIALITE_URL.'wpsocialite.js', array('jquery'), '1.0', true);
+
+				$scripts = WPSocialite_Options::wpsocialite_list_network_options(null, null, null, null);
+
+				$value = get_option('wpsocialite_networkoptions');
+
+				foreach ($scripts as $script){
+					if( isset($value[$script['slug']]) && $script['external_file'] !== false )
+						wp_enqueue_script('socialite-'.$script['slug'].'', WPSOCIALITE_URL_SOCIALITE.'/extensions/'.$script['external_file'].'', array('jquery'), '1.0', true);
 				}
 
 			}// if is admin
@@ -201,6 +208,14 @@ if (!class_exists("wpsocialite_options")) {
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_mode' );
 
 			add_settings_field(
+				$id = 'wpsocialite_excerpt',
+				$title = "WPSocialite Excerpt",
+				$callback = array( &$this, 'wpsocialite_excerpt' ),
+				$page = 'discussion'
+				);
+			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_excerpt' );
+
+			add_settings_field(
 				$id = 'wpsocialite_classes',
 				$title = "WPSocialite Classes",
 				$callback = array( &$this, 'wpsocialite_classes' ),
@@ -267,7 +282,22 @@ if (!class_exists("wpsocialite_options")) {
 					Choose the type of socialite style you would like to use.
 				</label>';
 
+		} // function
 
+		function wpsocialite_excerpt()
+		{
+			$value = get_option('wpsocialite_excerpt');
+			# echo your form fields here containing the value received from get_option
+			if($value == 1) :
+				$checked = 'checked';
+			else :
+				$checked = '';
+			endif;
+
+			echo '<label for="wpsocialite_excerpt">
+					<input name="wpsocialite_excerpt" type="checkbox" id="wpsocialite_excerpt" value="1" '.$checked.'>
+					Display WPSocialite sharing options in the excerpt of your posts.
+				</label>';
 
 		} // function
 
@@ -376,38 +406,43 @@ if (!class_exists("wpsocialite_options")) {
 		}
 
 		function wpsocialite_list_network_options($link = null, $title = null, $size = null) {
-			$buttons = array(
-				'facebook' => array(
-					'name' => 'Facebook',
-					'slug' => 'facebook',
-					'markup_large' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;t='.$title.'" class="socialite facebook-like" data-href="'.$link.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a>',
-					'markup_small' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;t='.$title.'" class="socialite facebook-like" data-href="'.$link.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a>'
-				),
-				'twitter' => array(
-					'name' => 'Twitter',
-					'slug' => 'twitter',
-					'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="vertical" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>',
-					'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" data-via="dbushell" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>'
-				),
-				'gplus' => array(
-					'name' => 'Google Plus',
-					'slug' => 'gplus',
-					'markup_large' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="tall" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a>',
-					'markup_small' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="medium" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a>'
-				),
-				'linkedin' => array(
-					'name' => 'Linkedin',
-					'slug' => 'linkedin',
-					'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
-					'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>'
-				),
-				'pintrest' => array(
-					'name' => 'Pintrest',
-					'slug' => 'pintrest',
-					'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a>',
-					'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">Pin It!</span></a>'
-				),
-			);
+            $buttons = array(
+                'facebook' => array(
+                    'name' => 'Facebook',
+                    'slug' => 'facebook',
+                    'markup_large' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;t='.$title.'" class="socialite facebook-like" data-href="'.$link.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a>',
+                    'markup_small' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;t='.$title.'" class="socialite facebook-like" data-href="'.$link.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">Share on Facebook</span></a>',
+                    'external_file' => false
+                ),
+                'twitter' => array(
+                    'name' => 'Twitter',
+                    'slug' => 'twitter',
+                    'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="vertical" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>',
+                    'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" data-via="dbushell" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>',
+                    'external_file' => false
+                ),
+                'gplus' => array(
+                    'name' => 'Google Plus',
+                    'slug' => 'gplus',
+                    'markup_large' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="tall" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a>',
+                    'markup_small' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="medium" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">Share on Google+</span></a>',
+                    'external_file' => false
+                ),
+                'linkedin' => array(
+                    'name' => 'Linkedin',
+                    'slug' => 'linkedin',
+                    'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
+                    'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
+                    'external_file' => false
+                ),
+                'pintrest' => array(
+                    'name' => 'Pintrest',
+                    'slug' => 'pintrest',
+                    'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a>',
+                    'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">Pin It!</span></a>',
+                    'external_file' => 'socialite.pinterest.js'
+                ),
+            );
 
 			return $buttons;
 		}
