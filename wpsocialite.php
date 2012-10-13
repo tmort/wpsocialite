@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WPSocialite
-Plugin URI: http://wordpress.org/extend/plugins/wpsocialte/
+Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
 Version: 1.3
@@ -136,10 +136,11 @@ if (!class_exists("wpsocialite")) {
 			$post = $wp_query->post; //get post content
 			$id = $post->ID; //get post id
 			$postlink = get_permalink($id); //get post link
+			$imagelink = wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'full' ); //get the featured image url
 			$title = trim($post->post_title); // get post title
 
 			$value = get_option('wpsocialite_networkoptions');
-			$buttons = WPSocialite_Options::wpsocialite_list_network_options($postlink, $title, $size);
+			$buttons = WPSocialite_Options::wpsocialite_list_network_options($postlink, $title, $size, $imagelink[0]);
 
 			$return = '';
 			$return .= '<ul class="wpsocialite social-buttons '.$size.'">';
@@ -418,7 +419,8 @@ if (!class_exists("wpsocialite_options")) {
 
 		}
 
-		function wpsocialite_list_network_options($link = null, $title = null, $size = null) {
+		function wpsocialite_list_network_options($link = null, $title = null, $size = null, $image = null) {
+			if( $image == '') { $image = null; } //link post featured image with Pinterest, if available
 
             $buttons = array(
                 'facebook' => array(
@@ -452,8 +454,8 @@ if (!class_exists("wpsocialite_options")) {
                 'pintrest' => array(
                     'name' => 'Pintrest',
                     'slug' => 'pintrest',
-                    'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a>',
-                    'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">Pin It!</span></a>',
+                    'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a>',
+                    'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">Pin It!</span></a>',
                     'external_file' => 'socialite.pinterest.js'
                 ),
             );
