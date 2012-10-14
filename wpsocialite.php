@@ -434,7 +434,7 @@ if (!class_exists("wpsocialite_options")) {
                     'name' => 'Twitter',
                     'slug' => 'twitter',
                     'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="vertical" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>',
-                    'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" data-via="dbushell" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>',
+                    'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" rel="nofollow" target="_blank"><span class="vhidden">Share on Twitter</span></a>',
                     'external_file' => false
                 ),
                 'gplus' => array(
