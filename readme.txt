@@ -1,7 +1,7 @@
 === WPSocialite ===
 Contributors: TM3909
 Donate link:
-Tags: social networking, sharing links, tm3909
+Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 Requires at least: 3.0
 Tested up to: 3.4.2
 Stable tag: 1.4.1
@@ -12,7 +12,7 @@ Long page loads aren't fun for anyone. Use WPSocialite to take control of heavy 
 
 == Description ==
 
-No one likes long load times, but we all want to be able to share our content via Facebook, Twitter, and other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
+No one likes long load times, but we all want to be able to share our content via Facebook, Twitter, and other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 
 
 == Installation ==
