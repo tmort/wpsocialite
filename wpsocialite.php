@@ -32,6 +32,9 @@ define( 'WPSOCIALITE_PATH', plugin_dir_path(__FILE__) );
 define( 'WPSOCIALITE_URL_SOCIALITE', plugin_dir_url(__FILE__).'Socialite' );
 define( 'WPSOCIALITE_URL_IMG', plugin_dir_url(__FILE__).'Socialite/demo/images' );
 
+if ( !defined('WPSOCIALITE_LOADSCRIPTS') )
+	define( 'WPSOCIALITE_LOADSCRIPTS', true );
+
 if (!class_exists("wpsocialite")) {
 
 	class wpsocialite {
@@ -44,7 +47,7 @@ if (!class_exists("wpsocialite")) {
 		function __construct()
 		{
 			new WPSocialite_Options;
-			//add_action( 'admin_init', array( &$this, 'admin_init' ) );
+
 			add_action( 'init', array( &$this, 'init' ) );
 
 			add_action( 'wp_head', array( &$this, 'wpsocialite_vardefine_head' ) );
@@ -61,13 +64,15 @@ if (!class_exists("wpsocialite")) {
 
 		function admin_init()
 		{
-			//$this->ban_check();
+
 		} // admin_init
 
 		function init()
 		{
-			$this->wpsocialite_enqueue_scripts();
-			$this->wpsocialite_enqueue_styles();
+			if( WPSOCIALITE_LOADSCRIPTS ){
+				$this->wpsocialite_enqueue_scripts();
+				$this->wpsocialite_enqueue_styles();
+			}
 		} // init
 		function wpsocialite_vardefine_head()
 		{
@@ -448,7 +453,7 @@ if (!class_exists("wpsocialite_options")) {
                     'name' => 'Linkedin',
                     'slug' => 'linkedin',
                     'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
-                    'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
+                    'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
                     'external_file' => false
                 ),
                 'pintrest' => array(
