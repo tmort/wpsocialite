@@ -23,6 +23,16 @@ A big thanks to [@shmula](http://twitter.com/shmula/) for contributing his thoug
 You can set the size/style of your social icons by setting 'large' or 'small' inside of the function.
 
 
+## Disable Script Loading
+
+By dropping the following code into your wp-config.php file you will tell the plugin to not load its CSS and Javascript and give you the ability to add it manually.
+
+<code>define('WPSOCIALITE_LOADSCRIPTS', false);</code>
+
+Setting this to false tells the plugin to not load any Javascript or CSS. If you want the plugin to automatically load it again, simply set this to true or remove it completely.
+
+Please note, when using this method if you are loading any social networks with an external file (Pinterest, for example), you will also have to load the javascript file associated with the network (wpsocialite/Socialite/extensions/socialite.pinterest.js).
+
 =======
 # Socialite
 
