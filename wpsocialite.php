@@ -451,9 +451,9 @@ if (!class_exists("wpsocialite_options")) {
                     'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title=Socialite.js" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">Share on LinkedIn</span></a>',
                     'external_file' => false
                 ),
-                'pintrest' => array(
-                    'name' => 'Pintrest',
-                    'slug' => 'pintrest',
+                'pinterest' => array(
+                    'name' => 'Pinterest',
+                    'slug' => 'pinterest',
                     'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">Pin It!</span></a>',
                     'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">Pin It!</span></a>',
                     'external_file' => 'socialite.pinterest.js'
