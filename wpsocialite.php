@@ -154,6 +154,8 @@ if (!class_exists("wpsocialite")) {
 
 		function wpsocialite_add_to_content( $content )
 		{
+			global $wp_current_filter;
+  			if(in_array('get_the_excerpt', $wp_current_filter)) return $content;
 
 			$position = get_option('wpsocialite_position');
 
