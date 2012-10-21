@@ -18,7 +18,7 @@ Download the plugin, place into your wp-content/plugins folder, activate it unde
 
 A big thanks to [@shmula](http://twitter.com/shmula/) for contributing his thoughts and needs! I've added manual usage so you can insert WPSocialite wherever you like within your Wordpress template. To do so, navigate to the settings page and set the position to "manual". Then, place the following code wherever you would like the social icons to appear.
 
-<code><?php echo $wpsocialite->wpsocialite_markup('large'); ?> </code>
+<code><?php echo wpsocialite::wpsocialite_markup('large'); ?> </code>
 
 You can set the size/style of your social icons by setting 'large' or 'small' inside of the function.
 

@@ -4,7 +4,7 @@ Plugin Name: WPSocialite
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 1.4.1
+Version: 1.4.2
 Author URI: http://twmorton.com/
 
 This plugin uses the Socialitejs library created by David Bushell. The author of this plugin does not wish to claim this tool as his own but ensure that David gets proper credit for his work. I've simply wrapped his fantastic tool into a Wordpress plugin for us all to use. Please be sure to check him out: @dbushell or '.$postlink.'
@@ -50,8 +50,6 @@ if (!class_exists("wpsocialite")) {
 
 			add_action( 'init', array( &$this, 'init' ) );
 
-			add_action( 'wp_head', array( &$this, 'wpsocialite_vardefine_head' ) );
-
 			add_filter( 'body_class', array( &$this, 'wpsocialite_body_class' ) );
 
 			add_filter( 'the_content', array( &$this, 'wpsocialite_add_to_content' ) );
@@ -74,20 +72,7 @@ if (!class_exists("wpsocialite")) {
 				$this->wpsocialite_enqueue_styles();
 			}
 		} // init
-		function wpsocialite_vardefine_head()
-		{
-			global $wp;
 
-			$value = get_option('wpsocialite_classes');
-
-			if($value == ''){
-				$value = 'article.post, .post, .page, .social-buttons';
-			}
-
-			$script = "<script type=\"text/javascript\"> var thePostClasses = '$value'; </script>\n";
-
-			echo $script;
-		}
 		function wpsocialite_body_class($classes)
 		{
 			$value = get_option('wpsocialite_mode');
@@ -174,10 +159,13 @@ if (!class_exists("wpsocialite")) {
 
 			$size = get_option('wpsocialite_style');
 
+			if(is_feed())
+				return $content; //do not include social markup in feed
+
 			switch($position){
 
 				case 'manual':
-					//nada
+					//nothing
 				break;
 
 				case 'before':
@@ -233,14 +221,6 @@ if (!class_exists("wpsocialite_options")) {
 				$page = 'discussion'
 				);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_excerpt' );
-
-			add_settings_field(
-				$id = 'wpsocialite_classes',
-				$title = "WPSocialite Classes",
-				$callback = array( &$this, 'wpsocialite_classes' ),
-				$page = 'discussion'
-				);
-			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_classes' );
 
 			add_settings_field(
 				$id = 'wpsocialite_style',
@@ -347,7 +327,7 @@ if (!class_exists("wpsocialite_options")) {
 					<select name="wpsocialite_position" id="wpsocialite_position">
 						'.$options.'
 					</select>
-					Choose where you would like the social icons to appear, before or after the main content.
+					Choose where you would like the social icons to appear, before or after the main content. If set to <strong>Manual</strong>, you can use this code to place your Social links anywhere you like: <pre>&lt;?php echo wpsocialite::wpsocialite_markup("large"); ?&gt;</pre>
 				</label>';
 
 
@@ -375,21 +355,6 @@ if (!class_exists("wpsocialite_options")) {
 				</label>';
 
 
-
-		} // function
-
-		function wpsocialite_classes()
-		{
-			$value = get_option('wpsocialite_classes');
-			if($value == ''){
-				$value = 'article.post, .post, .page, .social-buttons';
-			}
-			# echo your form fields here containing the value received from get_option
-
-			echo '<label for="wpsocialite_classes">
-					<input type="text" name="wpsocialite_classes" id="wpsocialite_classes" value="'.$value.'" class="large-text" >
-					Define the class that your posts and pages are wrapped in. If you are unsure, leave it as is.
-				</label>';
 
 		} // function
 

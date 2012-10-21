@@ -1,8 +1,9 @@
 jQuery(function($) {
 
+	Socialite.process(); //processing each instance before we take any action. Makes sure pinterest loads individually and not all together.
+
 	if ( $("body").hasClass("wpsocialite-scroll") ) { //If set to 'scroll'
-	
-		var	articles = $(thePostClasses), socialised = { }, win = $(window), updateArticles, onUpdate, updateTimeout;
+		var	articles = $('.social-buttons'), socialised = { }, win = $(window), updateArticles, onUpdate, updateTimeout;
 
 		updateArticles = function()
 		{
@@ -44,13 +45,13 @@ jQuery(function($) {
 		win.on('resize', onUpdate).on('scroll', onUpdate);
 
 		setTimeout(updateArticles, 100);
-		
+
 	} else { //If not set to 'scroll', default to hover
-	
-		$(thePostClasses).one('mouseenter', function(){
+
+		$('.social-buttons').parent().one('mouseenter', function(){
 			Socialite.load($(this)[0]);
-		});		
-		
+		});
+
 	}
 
 });//theend

@@ -4,7 +4,7 @@ Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 Requires at least: 3.0
 Tested up to: 3.4.2
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,7 @@ Socialite.js allows us to define when we would like to load our social sharing l
 
 Of course! Use the "manual" setting under the plugin settings (Settings->Discussion) and then use the following PHP in your template to display the links however you please.
 
-`<?php echo $wpsocialite->wpsocialite_markup('large'); ?>`
+`<?php echo wpsocialite::wpsocialite_markup('large'); ?>`
 
 When using this method, be sure to include "large" or "small" inside the function (as seen above) to define which style WPSocialite will use to display your social links.
 
@@ -59,6 +59,9 @@ Please note, when using this method if you are loading any social networks with 
 
 == Changelog ==
 
+= 1.4.2 =
+* Fixed Pinterest loading all at once. Corrected readme instructions for manual usage. Removed class selection option.
+
 = 1.4.1 =
 * Quickfix for the issues with GIT and SVN Repo. Also added ability to disable autoloading CSS and JS. See FAQ for more information.
 
@@ -80,6 +83,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 == Upgrade Notice ==
+
+= 1.4.2 =
+Fixed Pinterest loading all at once. Removed class selection option.
 
 = 1.4.1 =
 Cleaned up files and added ability to disable automatic loading of JS and CSS. Upgrade to ensure no compatability issues arise.
