@@ -163,6 +163,8 @@ if (!class_exists("wpsocialite")) {
 
 			if(is_feed())
 				return $content; //do not include social markup in feed
+                        elseif (is_page()) 
+			        return $content; //do not include social markup in pages
 
 			switch($position){
 
