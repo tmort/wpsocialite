@@ -161,10 +161,8 @@ if (!class_exists("wpsocialite")) {
 
 			$size = get_option('wpsocialite_style');
 
-			if(is_feed())
-				return $content; //do not include social markup in feed
-                        elseif (is_page()) 
-			        return $content; //do not include social markup in pages
+			if(is_feed() || is_page())
+				return $content; //do not include social markup in feed and page
 
 			switch($position){
 
