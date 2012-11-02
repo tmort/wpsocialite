@@ -462,36 +462,36 @@ if (!class_exists("wpsocialite_options")) {
                 'facebook' => array(
                     'name' => 'Facebook',
                     'slug' => 'facebook',
-                    'markup_large' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.__('Share on Facebook','wpsocialite').'</span></a>',
-                    'markup_small' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.__('Share on Facebook','wpsocialite').'</span></a>',
+                    'markup_large' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_facebook_label',__('Share on Facebook.','wpsocialite')).'</span></a>',
+                    'markup_small' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_facebook_label',__('Share on Facebook.','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'twitter' => array(
                     'name' => 'Twitter',
                     'slug' => 'twitter',
-                    'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="vertical" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.__('Share on Twitter','wpsocialite').'</span></a>',
-                    'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.__('Share on Twitter','wpsocialite').'</span></a>',
+                    'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="vertical" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
+                    'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'gplus' => array(
                     'name' => 'Google Plus',
                     'slug' => 'gplus',
-                    'markup_large' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="tall" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.__('Share on Google+','wpsocialite').'</span></a>',
-                    'markup_small' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="medium" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.__('Share on Google+','wpsocialite').'</span></a>',
+                    'markup_large' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="tall" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_googleplus_label',__('Share on Google+','wpsocialite')).'</span></a>',
+                    'markup_small' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="medium" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_googleplus_label',__('Share on Google+','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'linkedin' => array(
                     'name' => 'Linkedin',
                     'slug' => 'linkedin',
-                    'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">'.__('Share on LinkedIn','wpsocialite').'</span></a>',
-                    'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">'.__('Share on LinkedIn','wpsocialite').'</span></a>',
+                    'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_linkedin_label',__('Share on LinkedIn','wpsocialite')).'</span></a>',
+                    'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_linkedin_label',__('Share on LinkedIn','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'pinterest' => array(
                     'name' => 'Pinterest',
                     'slug' => 'pinterest',
-                    'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">'.__('Pin It!','wpsocialite').'</span></a>',
-                    'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">'.__('Pin It!','wpsocialite').'</span></a>',
+                    'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
+                    'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
                     'external_file' => 'socialite.pinterest.js'
                 ),
             );

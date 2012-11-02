@@ -1,5 +1,5 @@
 === WPSocialite ===
-Contributors: TM3909
+Contributors: CharlesKakiDCM
 Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 Requires at least: 3.0
