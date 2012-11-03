@@ -4,24 +4,24 @@ Plugin Name: WPSocialite
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 1.4.2
+Version: 1.4.3
 Author URI: http://twmorton.com/
 
-This plugin uses the Socialitejs library created by David Bushell. The author of this plugin does not wish to claim this tool as his own but ensure that David gets proper credit for his work. I've simply wrapped his fantastic tool into a Wordpress plugin for us all to use. Please be sure to check him out: @dbushell or '.$postlink.'
+This plugin uses the Socialitejs library created by David Bushell. The author of this plugin does not wish to claim this tool as his own but ensure that David gets proper credit for his work. I've simply wrapped his fantastic tool into a Wordpress plugin for us all to use. Please be sure to check him out: @dbushell or http://socialitejs.com
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
 
@@ -53,9 +53,9 @@ if (!class_exists("wpsocialite")) {
 			new WPSocialite_Options;
 
 			add_action( 'init', array( &$this, 'init' ) );
-                        
-                        // localizes the buttons depending on the get_locale().
-                        add_action( 'wp_footer', array( &$this, 'wpsocialite_localize_script'),20);
+
+			// localizes the buttons depending on the get_locale().
+			add_action( 'wp_footer', array( &$this, 'wpsocialite_localize_script'),20);
 
 			add_filter( 'body_class', array( &$this, 'wpsocialite_body_class' ) );
 
@@ -75,7 +75,7 @@ if (!class_exists("wpsocialite")) {
 		function init()
 		{
 			load_plugin_textdomain('wpsocialite', false, dirname(plugin_basename(__FILE__)).'/lang/');
-                    
+
 			if( WPSOCIALITE_LOADSCRIPTS ){
 				$this->wpsocialite_enqueue_scripts();
 			}
@@ -118,27 +118,27 @@ if (!class_exists("wpsocialite")) {
 
 		} // wpsocialite_enqueue_scripts()
 
-                function wpsocialite_localize_script()
-                {
-                    // overrides Socialite setup with valid locales
-                    
-                    $locale = get_locale();
-                    $c5 = $locale;
-                    $c2 = substr($c5, 0, 2);
-                    
-                    $fb_locales = array('af_ZA','ar_AR','az_AZ','be_BY','bg_BG','bn_IN','bs_BA','ca_ES','cs_CZ','cy_GB','da_DK','de_DE','el_GR','en_GB','en_US','eo_EO','es_ES','es_LA','et_EE','eu_ES','fa_IR','fi_FI','fo_FO','fr_CA','fr_FR','fy_NL','ga_IE','gl_ES','he_IL','hi_IN','hr_HR','hu_HU','hy_AM','id_ID','is_IS','it_IT','ja_JP','ka_GE','km_KH','ko_KR','ku_TR','la_VA','lt_LT','lv_LV','mk_MK','ml_IN','ms_MY','nb_NO','ne_NP','nl_NL','nn_NO','pa_IN','pl_PL','ps_AF','pt_BR','pt_PT','ro_RO','ru_RU','sk_SK','sl_SI','sq_AL','sr_RS','sv_SE','sw_KE','ta_IN','te_IN','th_TH','tl_PH','tr_TR','uk_UA','vi_VN','zh_CN','zh_HK','zh_TW');
-                    $tw_locales = array('en','fr','de','it','es','ko','ja');
-                    $gp_locales = array('af','am','ar','eu','bn','bg','ca','zh-HK','zh-CN','zh-TW','hr','cs','da','nl','en-GB','en-US','et','fil','fi','fr','fr-CA','gl','de','el','gu','iw','hi','hu','is','id','it','ja','kn','ko','lb','lt','ms','ml','mr','no','fa','pl','pt-BR','pt-PT','ro','ru','sr','sk','sl','es','es-419','sw','sv','ta','te','th','tr','uk','ur','vi','zu');
-                    
-                    $fb_locale = (in_array($c5,$fb_locales))? $c5 : 'en_US';
-                    $tw_locale = (in_array($c2,$tw_locales))? $c2 : 'en';
-                    $gp_locale = (in_array($c5,$gp_locales))? str_replace('_', '-', $c5) : (in_array($c2,$gp_locales))? $c2 : 'en';
-                    
-                    
-                    echo "<script type=\"text/javascript\">Socialite.setup({facebook:{lang:'$fb_locale',appId:null},twitter:{lang:'$tw_locale'},googleplus:{lang:'$gp_locale'}});</script>";
-                    
-                }
-                
+		function wpsocialite_localize_script()
+		{
+			// overrides Socialite setup with valid locales
+
+			$locale = get_locale();
+			$c5 = $locale;
+			$c2 = substr($c5, 0, 2);
+
+			$fb_locales = array('af_ZA','ar_AR','az_AZ','be_BY','bg_BG','bn_IN','bs_BA','ca_ES','cs_CZ','cy_GB','da_DK','de_DE','el_GR','en_GB','en_US','eo_EO','es_ES','es_LA','et_EE','eu_ES','fa_IR','fi_FI','fo_FO','fr_CA','fr_FR','fy_NL','ga_IE','gl_ES','he_IL','hi_IN','hr_HR','hu_HU','hy_AM','id_ID','is_IS','it_IT','ja_JP','ka_GE','km_KH','ko_KR','ku_TR','la_VA','lt_LT','lv_LV','mk_MK','ml_IN','ms_MY','nb_NO','ne_NP','nl_NL','nn_NO','pa_IN','pl_PL','ps_AF','pt_BR','pt_PT','ro_RO','ru_RU','sk_SK','sl_SI','sq_AL','sr_RS','sv_SE','sw_KE','ta_IN','te_IN','th_TH','tl_PH','tr_TR','uk_UA','vi_VN','zh_CN','zh_HK','zh_TW');
+			$tw_locales = array('en','fr','de','it','es','ko','ja');
+			$gp_locales = array('af','am','ar','eu','bn','bg','ca','zh-HK','zh-CN','zh-TW','hr','cs','da','nl','en-GB','en-US','et','fil','fi','fr','fr-CA','gl','de','el','gu','iw','hi','hu','is','id','it','ja','kn','ko','lb','lt','ms','ml','mr','no','fa','pl','pt-BR','pt-PT','ro','ru','sr','sk','sl','es','es-419','sw','sv','ta','te','th','tr','uk','ur','vi','zu');
+
+			$fb_locale = (in_array($c5,$fb_locales))? $c5 : 'en_US';
+			$tw_locale = (in_array($c2,$tw_locales))? $c2 : 'en';
+			$gp_locale = (in_array($c5,$gp_locales))? str_replace('_', '-', $c5) : (in_array($c2,$gp_locales))? $c2 : 'en';
+
+
+			echo "<script type=\"text/javascript\">Socialite.setup({facebook:{lang:'$fb_locale',appId:null},twitter:{lang:'$tw_locale'},googleplus:{lang:'$gp_locale'}});</script>";
+
+		}
+
 		function wpsocialite_enqueue_styles()
 		{
 
@@ -159,7 +159,7 @@ if (!class_exists("wpsocialite")) {
 				'size'=>get_option('wpsocialite_style')
 			);
 			extract(wp_parse_args($args,$default_args),EXTR_SKIP);
-			
+
 			global $wp_query;
 			$post = $wp_query->post; //get post content
 			$id = $post->ID; //get post id
@@ -192,22 +192,21 @@ if (!class_exists("wpsocialite")) {
 
 		function wpsocialite_add_to_content( $content )
 		{
-                        // added single and post type filters
-                    
-                    
+			// added single and post type filters
+
 			$single = get_option('wpsocialite_single');
 
-                        $position = get_option('wpsocialite_position');
+			$position = get_option('wpsocialite_position');
 
-                        $post_types = get_option('wpsocialite_post_types',array());
-                        $pt = get_post_type();
-                        
-                        if ($single && !is_single())
-                                return $content;
-                        
-                        if(!in_array($pt,$post_types))
-                                return $content;
-                        
+			$post_types = get_option('wpsocialite_post_types',array());
+			$pt = get_post_type();
+
+			if ($single && !is_single()) //Do not display unless single if user specified
+				return $content;
+
+			if(!in_array($pt,$post_types)) //Do not display on the specified post type
+				return $content;
+
 			if(is_feed())
 				return $content; //do not include social markup in feed
 
@@ -255,21 +254,19 @@ if (!class_exists("wpsocialite_options")) {
 
 		function admin_init()
 		{
-			add_settings_section( 
-                                $id = 'wpsocialite', 
-                                $title = __('WPSocialite','wpsocialite'), 
-                                $callback = array(&$this,'wpsocialite_section'), 
-                                $page = 'discussion'
-                                ); 
-                        
-                        
-                        add_settings_field(
+			add_settings_section(
+				$id = 'wpsocialite',
+				$title = __('WPSocialite','wpsocialite'),
+				$callback = array(&$this,'wpsocialite_section'),
+				$page = 'discussion'
+			);
+			add_settings_field(
 				$id = 'wpsocialite_mode',
 				$title = __('Mode','wpsocialite'),
 				$callback = array( &$this, 'wpsocialite_mode' ),
 				$page = 'discussion',
-                                $section = 'wpsocialite'
-				);
+				$section = 'wpsocialite'
+			);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_mode' );
 
 			add_settings_field(
@@ -277,8 +274,8 @@ if (!class_exists("wpsocialite_options")) {
 				$title = __('Apply to Excerpt','wpsocialite'),
 				$callback = array( &$this, 'wpsocialite_excerpt' ),
 				$page = 'discussion',
-                                $section = 'wpsocialite'
-				);
+				$section = 'wpsocialite'
+			);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_excerpt' );
 
 			add_settings_field(
@@ -286,17 +283,17 @@ if (!class_exists("wpsocialite_options")) {
 				$title = __('Apply to Single only','wpsocialite'),
 				$callback = array( &$this, 'wpsocialite_single' ),
 				$page = 'discussion',
-                                $section = 'wpsocialite'
-				);
+				$section = 'wpsocialite'
+			);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_single' );
 
-                        add_settings_field(
+			add_settings_field(
 				$id = 'wpsocialite_style',
 				$title = __('Style','wpsocialite'),
 				$callback = array( &$this, 'wpsocialite_style' ),
 				$page = 'discussion',
-                                $section = 'wpsocialite'
-				);
+				$section = 'wpsocialite'
+			);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_style' );
 
 			add_settings_field(
@@ -304,8 +301,8 @@ if (!class_exists("wpsocialite_options")) {
 				$title = __('Position','wpsocialite'),
 				$callback = array( &$this, 'wpsocialite_position' ),
 				$page = 'discussion',
-                                $section = 'wpsocialite'
-				);
+				$section = 'wpsocialite'
+			);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_position' );
 
 			add_settings_field(
@@ -313,8 +310,8 @@ if (!class_exists("wpsocialite_options")) {
 				$title = __('Post Types','wpsocialite'),
 				$callback = array( &$this, 'wpsocialite_post_types' ),
 				$page = 'discussion',
-                                $section = 'wpsocialite'
-				);
+				$section = 'wpsocialite'
+			);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_post_types' );
 
 			add_settings_field(
@@ -322,24 +319,22 @@ if (!class_exists("wpsocialite_options")) {
 				$title = __('Network Options','wpsocialite'),
 				$callback = array( &$this, 'wpsocialite_networkoptions' ),
 				$page = 'discussion',
-                                $section = 'wpsocialite'
-				);
+				$section = 'wpsocialite'
+			);
 			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_networkoptions' );
 
 
 		} // function
 
-                function wpsocialite_section(){
-                        _e('The configuration of the WP Socialite Plugin.','wpsocialite');
-                }
-                
+		function wpsocialite_section(){
+			_e('The configuration of the WP Socialite Plugin.','wpsocialite');
+		}
+
 		function wpsocialite_mode()
 		{
 			$value = get_option('wpsocialite_mode');
 			# echo your form fields here containing the value received from get_option
 
-			// I replaced your if/else logic with the selected() function. Since Scroll is your default value, I've put it at the beginning (auto selection).		
-			
 			echo '<label for="wpsocialite_mode">
 					<select name="wpsocialite_mode" id="wpsocialite_mode">
 						<option value="scroll" '.selected($value,'scroll',false).'>'.__('Scroll','wpsocialite').'</option>
@@ -355,8 +350,6 @@ if (!class_exists("wpsocialite_options")) {
 			$value = get_option('wpsocialite_excerpt');
 			# echo your form fields here containing the value received from get_option
 
-			// I replaced your if/else logic with the checked() function.		
-			
 			echo '<label for="wpsocialite_excerpt">
 					<input name="wpsocialite_excerpt" type="checkbox" id="wpsocialite_excerpt" value="1" '.checked($value,1,false).'>
 					'.__('Display WPSocialite sharing buttons in the excerpt of your posts.','wpsocialite').'
@@ -369,8 +362,6 @@ if (!class_exists("wpsocialite_options")) {
 			$value = get_option('wpsocialite_single');
 			# echo your form fields here containing the value received from get_option
 
-			// I replaced your if/else logic with the checked() function.		
-			
 			echo '<label for="wpsocialite_single">
 					<input name="wpsocialite_single" type="checkbox" id="wpsocialite_single" value="1" '.checked($value,1,false).'>
 					'.__('Display WPSocialite sharing buttons only on single posts.','wpsocialite').'
@@ -378,12 +369,10 @@ if (!class_exists("wpsocialite_options")) {
 
 		} // function
 
-                function wpsocialite_position()
+				function wpsocialite_position()
 		{
 			$value = get_option('wpsocialite_position');
 			# echo your form fields here containing the value received from get_option
-
-			// I replaced your if/else logic with the selected() function. Since Before is your default value, I've put it at the beginning (auto selection).		
 
 			echo '<label for="wpsocialite_position">
 					<select name="wpsocialite_position" id="wpsocialite_position">
@@ -414,22 +403,22 @@ if (!class_exists("wpsocialite_options")) {
 
 
 		} // function
-                
-                // this addition makes it possible to specify to which post type to show the buttons
-                function wpsocialite_post_types(){
-                	$value = get_option('wpsocialite_post_types',array());
-                        $post_types = get_post_types(array('public'=>true),'objects');
 
-                        foreach($post_types as $pt=>$ptobj){
-                            $checked = (in_array($pt, $value))?' checked="CHECKED"': '';
-                            echo '<label for="wpsocialite_post_type_'.$pt.'">'
-					.'<input name="wpsocialite_post_types[]" type="checkbox" id="wpsocialite_post_type_'.$pt.'" value="'.$pt.'" '.$checked.' > '
-                                        .$ptobj->label;
-                            echo '</label><br />';
-                        }
-                    
-                } // function
-                
+		// specify to which post type to show the buttons
+		function wpsocialite_post_types(){
+			$value = get_option('wpsocialite_post_types',array());
+				$post_types = get_post_types(array('public'=>true),'objects');
+
+				foreach($post_types as $pt=>$ptobj){
+					$checked = (in_array($pt, $value))?' checked="CHECKED"': '';
+					echo '<label for="wpsocialite_post_type_'.$pt.'">
+							<input name="wpsocialite_post_types[]" type="checkbox" id="wpsocialite_post_type_'.$pt.'" value="'.$pt.'" '.$checked.' > '
+							.$ptobj->label.
+						'</label><br />';
+				}
+
+		}// function
+
 		function wpsocialite_networkoptions(){
 
 			$value = get_option('wpsocialite_networkoptions');
@@ -450,55 +439,53 @@ if (!class_exists("wpsocialite_options")) {
 			}
 
 			echo __('Select the social networks to display.','wpsocialite').'<br />
-				'.$output.'
-			';
+				'.$output;
 
 		}
 
 		function wpsocialite_list_network_options($link = null, $title = null, $size = null, $image = null) {
 			if( $image == '') { $image = null; } //link post featured image with Pinterest, if available
-                        $locale = get_locale();
-            $buttons = array(
-                'facebook' => array(
-                    'name' => 'Facebook',
-                    'slug' => 'facebook',
-                    'markup_large' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_facebook_label',__('Share on Facebook.','wpsocialite')).'</span></a>',
-                    'markup_small' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_facebook_label',__('Share on Facebook.','wpsocialite')).'</span></a>',
-                    'external_file' => false
-                ),
-                'twitter' => array(
-                    'name' => 'Twitter',
-                    'slug' => 'twitter',
-                    'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="vertical" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
-                    'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
-                    'external_file' => false
-                ),
-                'gplus' => array(
-                    'name' => 'Google Plus',
-                    'slug' => 'gplus',
-                    'markup_large' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="tall" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_googleplus_label',__('Share on Google+','wpsocialite')).'</span></a>',
-                    'markup_small' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="medium" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_googleplus_label',__('Share on Google+','wpsocialite')).'</span></a>',
-                    'external_file' => false
-                ),
-                'linkedin' => array(
-                    'name' => 'Linkedin',
-                    'slug' => 'linkedin',
-                    'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_linkedin_label',__('Share on LinkedIn','wpsocialite')).'</span></a>',
-                    'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_linkedin_label',__('Share on LinkedIn','wpsocialite')).'</span></a>',
-                    'external_file' => false
-                ),
-                'pinterest' => array(
-                    'name' => 'Pinterest',
-                    'slug' => 'pinterest',
-                    'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
-                    'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
-                    'external_file' => 'socialite.pinterest.js'
-                ),
-            );
+						$locale = get_locale();
+			$buttons = array(
+				'facebook' => array(
+					'name' => 'Facebook',
+					'slug' => 'facebook',
+					'markup_large' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_facebook_label',__('Share on Facebook.','wpsocialite')).'</span></a>',
+					'markup_small' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_facebook_label',__('Share on Facebook.','wpsocialite')).'</span></a>',
+					'external_file' => false
+				),
+				'twitter' => array(
+					'name' => 'Twitter',
+					'slug' => 'twitter',
+					'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="vertical" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
+					'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$title.'" data-url="'.$link.'" data-count="horizontal" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
+					'external_file' => false
+				),
+				'gplus' => array(
+					'name' => 'Google Plus',
+					'slug' => 'gplus',
+					'markup_large' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="tall" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_googleplus_label',__('Share on Google+','wpsocialite')).'</span></a>',
+					'markup_small' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="medium" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_googleplus_label',__('Share on Google+','wpsocialite')).'</span></a>',
+					'external_file' => false
+				),
+				'linkedin' => array(
+					'name' => 'Linkedin',
+					'slug' => 'linkedin',
+					'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_linkedin_label',__('Share on LinkedIn','wpsocialite')).'</span></a>',
+					'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_linkedin_label',__('Share on LinkedIn','wpsocialite')).'</span></a>',
+					'external_file' => false
+				),
+				'pinterest' => array(
+					'name' => 'Pinterest',
+					'slug' => 'pinterest',
+					'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
+					'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
+					'external_file' => 'socialite.pinterest.js'
+				),
+			);
 
 			return $buttons;
 		}
-
 
 		function wpsocialite_settings_link($links, $file) {
 			static $this_plugin;
@@ -518,13 +505,14 @@ if (!class_exists("wpsocialite_options")) {
 
 $wpsocialite = new wpsocialite;
 
-
-
-/* template function
+/* Template Tags
  *
  */
+function get_wpsocialite_markup($args = array()){
+	$wpsocialite = wpsocialite::wpsocialite_markup($args);
+	return $wpsocialite;
+}
 function wpsocialite_markup($args = array()){
-	
-	wpsocialite::wpsocialite_markup($args);
-
+	$wpsocialite = get_wpsocialite_markup($args);
+	echo $wpsocialite;
 }
