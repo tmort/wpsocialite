@@ -1,10 +1,10 @@
 === WPSocialite ===
-Contributors: CharlesKakiDCM
+Contributors: TM3909
 Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 Requires at least: 3.0
 Tested up to: 3.4.2
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,9 +34,18 @@ Socialite.js allows us to define when we would like to load our social sharing l
 
 = Can I add the social links myself instead of letting the plugin place them? =
 
-Of course! Use the "manual" setting under the plugin settings (Settings->Discussion) and then use the following PHP in your template to display the links however you please.
+Of course! Use the "manual" setting under the plugin settings (Settings->Discussion) and then use the following template tags in your template to display the links however you please.
 
-`<?php echo wpsocialite::wpsocialite_markup('large'); ?>`
+The first template tag is to echo out the markup and display WPSocialite:
+
+`<?php wpsocialite_markup('large'); ?>`
+
+The second template tag is to get WPSocialite's mark up and place it in an object, if needed:
+
+`<?php
+    $wpsocialite =  get_wpsocialite_markup('small');
+    echo $wpsocialite;
+?>`
 
 When using this method, be sure to include "large" or "small" inside the function (as seen above) to define which style WPSocialite will use to display your social links.
 
@@ -58,6 +67,9 @@ Please note, when using this method if you are loading any social networks with 
 3. Plugin settings, located in Settings->Discussion
 
 == Changelog ==
+
+= 1.4.3 =
+* Adds localization support and allows you to select the CPT WPSocialite displays on.
 
 = 1.4.2 =
 * Fixed Pinterest loading all at once. Corrected readme instructions for manual usage. Removed class selection option.
@@ -83,6 +95,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 == Upgrade Notice ==
+
+= 1.4.3 =
+* Adds localization support and allows you to select the CPT WPSocialite displays on.
 
 = 1.4.2 =
 Fixed Pinterest loading all at once. Removed class selection option.
