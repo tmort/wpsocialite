@@ -16,12 +16,20 @@ Download the plugin, place into your wp-content/plugins folder, activate it unde
 
 ## Manual Usage
 
-A big thanks to [@shmula](http://twitter.com/shmula/) for contributing his thoughts and needs! I've added manual usage so you can insert WPSocialite wherever you like within your Wordpress template. To do so, navigate to the settings page and set the position to "manual". Then, place the following code wherever you would like the social icons to appear.
+Use the "manual" setting under the plugin settings (Settings->Discussion) and then use the following template tags in your template to display the links however you please.
 
-<code><?php echo wpsocialite::wpsocialite_markup('large'); ?> </code>
+The first template tag is to echo out the markup and display WPSocialite:
 
-You can set the size/style of your social icons by setting 'large' or 'small' inside of the function.
+<code><?php wpsocialite_markup('large'); ?></code>
 
+The second template tag is to get WPSocialite's mark up and place it in an object, if needed:
+
+<code><?php
+    $wpsocialite =  get_wpsocialite_markup('small');
+    echo $wpsocialite;
+?></code>
+
+When using this method, be sure to include "large" or "small" inside the function (as seen above) to define which style WPSocialite will use to display your social links.
 
 ## Disable Script Loading
 
@@ -29,7 +37,11 @@ By dropping the following code into your wp-config.php file you will tell the pl
 
 <code>define('WPSOCIALITE_LOADSCRIPTS', false);</code>
 
-Setting this to false tells the plugin to not load any Javascript or CSS. If you want the plugin to automatically load it again, simply set this to true or remove it completely.
+Setting this to false tells the plugin to not load any Javascript. If you want the plugin to automatically load it again, simply set this to true or remove it completely.
+
+To stop the plugin from automatically loading its CSS, you would use the following line in the same way:
+
+<code>define( 'WPSOCIALITE_LOADSTYLES', false);</code>
 
 Please note, when using this method if you are loading any social networks with an external file (Pinterest, for example), you will also have to load the javascript file associated with the network (wpsocialite/Socialite/extensions/socialite.pinterest.js).
 
