@@ -1,0 +1,167 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPSocialite v1.4.2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-10-31 18:27:28+0000\n"
+"Last-Translator: Charles St-Pierre <support@kakidcm.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: wpsocialite.php:265
+#@ wpsocialite
+msgid "WPSocialite"
+msgstr ""
+
+#: wpsocialite.php:273
+#@ wpsocialite
+msgid "Mode"
+msgstr "Mode"
+
+#: wpsocialite.php:282
+#@ wpsocialite
+msgid "Apply to Excerpt"
+msgstr "Appliquer aux extraits"
+
+#: wpsocialite.php:291
+#@ wpsocialite
+msgid "Apply to Single only"
+msgstr "Ne pas appliquer aux listes de posts"
+
+#: wpsocialite.php:300
+#@ wpsocialite
+msgid "Style"
+msgstr "Style"
+
+#: wpsocialite.php:309
+#@ wpsocialite
+msgid "Position"
+msgstr "Position"
+
+#: wpsocialite.php:318
+#@ wpsocialite
+msgid "Post Types"
+msgstr "Types de contenus"
+
+#: wpsocialite.php:327
+#@ wpsocialite
+msgid "Network Options"
+msgstr "Réseaux sociaux"
+
+#: wpsocialite.php:338
+#@ wpsocialite
+msgid "The configuration of the WP Socialite Plugin."
+msgstr "La configuration de l’Extension WP Socialite."
+
+#: wpsocialite.php:350
+#@ wpsocialite
+msgid "Scroll"
+msgstr "Déroulement"
+
+#: wpsocialite.php:351
+#@ wpsocialite
+msgid "Hover"
+msgstr "Survole"
+
+#: wpsocialite.php:353
+#@ wpsocialite
+msgid "Choose the event to which Socialite will activate."
+msgstr "Choisir l’événement qui déclenchera Socialite."
+
+#: wpsocialite.php:367
+#@ wpsocialite
+msgid "Display WPSocialite sharing buttons in the excerpt of your posts."
+msgstr "Afficher les boutons Socialite dans les extraits d’articles."
+
+#: wpsocialite.php:381
+#@ wpsocialite
+msgid "Display WPSocialite sharing buttons only on single posts."
+msgstr "Afficher les boutons Socialite seulement dans les pages uniques d’articles."
+
+#: wpsocialite.php:395
+#@ wpsocialite
+msgid "Before"
+msgstr "Avant"
+
+#: wpsocialite.php:396
+#@ wpsocialite
+msgid "After"
+msgstr "Après"
+
+#: wpsocialite.php:397
+#@ wpsocialite
+msgid "Manual"
+msgstr "Manuellement"
+
+#: wpsocialite.php:399
+#, php-format
+#@ wpsocialite
+msgid "Choose where you would like the social icons to appear, before or after the main content. If set to <strong>Manual</strong>, you can use this code to place your Social links anywhere you like in your templates files: %s"
+msgstr "Choisissez si vous voulez que les boutons de média sociaux apparaissent avant ou après votre contenu principale. Si vous choisissez <strong>Manuellement</strong>, vous pouvez utiliser le code suivant pour insérer les boutons de média sociaux où bon vous semble dans les gabarits de votre thème: %s"
+
+#: wpsocialite.php:413
+#@ wpsocialite
+msgid "Large"
+msgstr "Grand"
+
+#: wpsocialite.php:414
+#@ wpsocialite
+msgid "Small"
+msgstr "Petit"
+
+#: wpsocialite.php:416
+#@ wpsocialite
+msgid "Choose the type of socialite style you would like to use."
+msgstr "Choisissez le style de bouton Socialite que vous voulez utiliser."
+
+#: wpsocialite.php:457
+#@ wpsocialite
+msgid "Select the social networks to display."
+msgstr "Choisissez les réseaux sociaux à afficher."
+
+#: wpsocialite.php:470
+#: wpsocialite.php:471
+#@ wpsocialite
+msgid "Share on Facebook"
+msgstr "Partager sur Facebook"
+
+#: wpsocialite.php:477
+#: wpsocialite.php:478
+#@ wpsocialite
+msgid "Share on Twitter"
+msgstr "Partager sur Twitter"
+
+#: wpsocialite.php:484
+#: wpsocialite.php:485
+#@ wpsocialite
+msgid "Share on Google+"
+msgstr "Partager sur Google+"
+
+#: wpsocialite.php:491
+#: wpsocialite.php:492
+#@ wpsocialite
+msgid "Share on LinkedIn"
+msgstr "Partager sur LinkedIn"
+
+#: wpsocialite.php:498
+#: wpsocialite.php:499
+#@ wpsocialite
+msgid "Pin It!"
+msgstr "Épingler!"
+
+#: wpsocialite.php:513
+#@ wpsocialite
+msgid "Settings"
+msgstr "Configuration"
+
