@@ -192,12 +192,11 @@ if (!class_exists("wpsocialite")) {
 
 		function wpsocialite_add_to_content( $content )
 		{
+ 			global $wp_current_filter;
+
 			// added single and post type filters
-
 			$single = get_option('wpsocialite_single');
-
 			$position = get_option('wpsocialite_position');
-
 			$post_types = get_option('wpsocialite_post_types',array());
 			$pt = get_post_type();
 
@@ -209,6 +208,9 @@ if (!class_exists("wpsocialite")) {
 
 			if(is_feed())
 				return $content; //do not include social markup in feed
+
+ 			if(in_array('get_the_excerpt', $wp_current_filter))
+ 				return $content;
 
 			switch($position){
 
