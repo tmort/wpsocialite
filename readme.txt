@@ -4,7 +4,7 @@ Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 Requires at least: 3.0
 Tested up to: 3.4.2
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ Please note, when using this method if you are loading any social networks with 
 
 == Changelog ==
 
+= 1.4.5 =
+* Fixed in_array error being thrown due to post type check.
+
 = 1.4.4 =
 * Fixed WP_Trip_excerpt Issue.
 
@@ -103,6 +106,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 == Upgrade Notice ==
+
+= 1.4.5 =
+* Fixed in_array error being thrown due to post type check.
 
 = 1.4.4 =
 * Fixes WP_Trip_excerpt Issue.

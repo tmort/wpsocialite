@@ -4,7 +4,7 @@ Plugin Name: WPSocialite
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 1.4.4
+Version: 1.4.5
 Author URI: http://twmorton.com/
 
 This plugin uses the Socialitejs library created by David Bushell. The author of this plugin does not wish to claim this tool as his own but ensure that David gets proper credit for his work. I've simply wrapped his fantastic tool into a Wordpress plugin for us all to use. Please be sure to check him out: @dbushell or http://socialitejs.com
@@ -203,9 +203,10 @@ if (!class_exists("wpsocialite")) {
 			if ($single && !is_single()) //Do not display unless single if user specified
 				return $content;
 
-			if(!in_array($pt,$post_types)) //Do not display on the specified post type
-				return $content;
-
+			if($post_types){
+				if(!in_array($pt,$post_types)) //Do not display on the specified post type
+					return $content;
+			}
 			if(is_feed())
 				return $content; //do not include social markup in feed
 
@@ -409,6 +410,9 @@ if (!class_exists("wpsocialite_options")) {
 		// specify to which post type to show the buttons
 		function wpsocialite_post_types(){
 			$value = get_option('wpsocialite_post_types',array());
+			if($value === ''){
+				$value = array();
+			}
 				$post_types = get_post_types(array('public'=>true),'objects');
 
 				foreach($post_types as $pt=>$ptobj){
