@@ -31,6 +31,8 @@ The second template tag is to get WPSocialite's mark up and place it in an objec
 
 When using this method, be sure to include "large" or "small" inside the function (as seen above) to define which style WPSocialite will use to display your social links.
 
+You can also use the shortcode [wpsocialite size="large"] or [wpsocialite size="small"] in a post or page and it will display the social sharing buttons anywhere you like.
+
 ## Disable Script Loading
 
 By dropping the following code into your wp-config.php file you will tell the plugin to not load its CSS and Javascript and give you the ability to add it manually.

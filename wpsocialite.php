@@ -4,7 +4,7 @@ Plugin Name: WPSocialite
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 1.4.5
+Version: 1.5
 Author URI: http://twmorton.com/
 
 This plugin uses the Socialitejs library created by David Bushell. The author of this plugin does not wish to claim this tool as his own but ensure that David gets proper credit for his work. I've simply wrapped his fantastic tool into a Wordpress plugin for us all to use. Please be sure to check him out: @dbushell or http://socialitejs.com
@@ -64,6 +64,10 @@ if (!class_exists("wpsocialite")) {
 			if( get_option('wpsocialite_excerpt') == 1 ){
 				add_filter( 'the_excerpt', array( &$this, 'wpsocialite_add_to_content' ) );
 			}
+
+			add_shortcode( 'wpsocialite', array( &$this, 'wpsocialite_shortcode' ));
+			add_filter('mce_external_plugins', array( &$this, 'wpsocialite_shortcode_plugin' ));
+			add_filter('mce_buttons', array( &$this, 'wpsocialite_shortcode_button' ));
 
 		} // __construct
 
@@ -151,6 +155,24 @@ if (!class_exists("wpsocialite")) {
 
 		} // wpsocialite_enqueue_scripts
 
+		function wpsocialite_shortcode($atts){
+			extract( shortcode_atts( array(
+				'size' => 'small',
+			), $atts ) );
+
+			return get_wpsocialite_markup($atts);
+
+		}
+
+		function wpsocialite_shortcode_button($buttons) {
+			array_push($buttons, "wpsocialite");
+			return $buttons;
+		}
+
+		function wpsocialite_shortcode_plugin($plugin_array) {
+			$plugin_array['wpsocialite'] = WPSOCIALITE_URL.'lib/wpsocialite-shortcode.js';
+			return $plugin_array;
+		}
 
 		function wpsocialite_markup($args = array())
 		{

@@ -3,8 +3,8 @@ Contributors: TM3909
 Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 Requires at least: 3.0
-Tested up to: 3.4.2
-Stable tag: 1.4.5
+Tested up to: 3.5
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,8 @@ The second template tag is to get WPSocialite's mark up and place it in an objec
 
 When using this method, be sure to include "large" or "small" inside the function (as seen above) to define which style WPSocialite will use to display your social links.
 
+You can also use the shortcode `[wpsocialite size="large"]` or `[wpsocialite size="small"]` in a post or page and it will display the social sharing buttons anywhere you like.
+
 = Can I disable the plugins script loading in order to manually add the CSS and Javascript myself? =
 
 Yes! By dropping the following code into your wp-config.php file you will tell the plugin to not load its CSS and Javascript and give you the ability to add it manually.
@@ -72,6 +74,9 @@ Please note, when using this method if you are loading any social networks with 
 3. Plugin settings, located in Settings->Discussion
 
 == Changelog ==
+
+= 1.5 =
+* Adding shortcode option to display WpSocialite
 
 = 1.4.5 =
 * Fixed in_array error being thrown due to post type check.
@@ -106,6 +111,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 == Upgrade Notice ==
+
+= 1.5 =
+* Adding shortcode option to display WpSocialite
 
 = 1.4.5 =
 * Fixed in_array error being thrown due to post type check.
