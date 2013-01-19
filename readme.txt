@@ -4,7 +4,7 @@ Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,9 @@ Please note, when using this method if you are loading any social networks with 
 
 == Changelog ==
 
+= 1.6 =
+* Pinterest Fix
+
 = 1.5 =
 * Adding shortcode option to display WpSocialite
 
@@ -111,6 +114,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 == Upgrade Notice ==
+
+= 1.6 =
+* Pinterest Fix
 
 = 1.5 =
 * Adding shortcode option to display WpSocialite
