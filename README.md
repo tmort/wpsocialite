@@ -1,100 +1,159 @@
-# WPSocialite
+=== WPSocialite ===
+Contributors: TM3909, wpinit
+Donate link:
+Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
+Requires at least: 3.0
+Tested up to: 3.5.1
+Stable tag: 2.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin adds the SocialiteJS Functionailty (Developed by David Bushell[http://dbushell.com/]) to Wordpress.
+Long page loads aren't fun for anyone. Use WPSocialite to take control of heavy social sharing links and load them how you want!
 
-Author: Tom Morton [http://twmorton.com](http://twmorton.com/) [@tmort](http://twitter.com/tmort/)
+== Description ==
+
+No one likes long load times, but we all want to be able to share our content via Facebook, Twitter, and other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
+
+= Template Tag =
+`<?php
+$args = array(
+    'size' => 'large' //choose which size buttons to display.
+    'url' => 'http://google.com', //use this to override the url that is sent to WPSocialite. Only use for standalone button, not in the loop.
+    'button_override' => 'facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus' //used to override buttons that are displayed. Add and remove as needed.
+);
+wpsocialite_markup( $args ); ?>`
 
 
-You can download the plugin in the Wordpress Plugin Repo here: [http://wordpress.org/extend/plugins/wpsocialite/](http://wordpress.org/extend/plugins/wpsocialite/)
+= Shortcode =
 
-Original SocialJS Author: David Bushell [http://dbushell.com](http://dbushell.com/) [@dbushell](http://twitter.com/dbushell/)
+`[wpsocialite size="small" url="http://google.com" button_override="facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus"]`
+
+== Installation ==
+
+1. Download the wpsocialite folder and upload it to {your-wp-directory}/wp-content/plugins folder.
+2. Visit Your-website.com/wp-admin/plugins.php and activate WPSocialite.
+3. Head to Settings->Discussion and scroll to "WPSocialite" settings to configure the plugin.
+
+Thats it!
 
 
-## Setup
+== Frequently Asked Questions ==
 
-Download the plugin, place into your wp-content/plugins folder, activate it under your wordpress plugins panel, and you're all set! Configure settings via the Options->Discussion Settings page.
+= So what does this do? =
 
-## Manual Usage
+WPSocialite uses socialite.js and implements it into the Wordpress workflow, adding it automatically (or manually, if you choose) to your content.
 
-Use the "manual" setting under the plugin settings (Settings->Discussion) and then use the following template tags in your template to display the links however you please.
+Socialite.js allows us to define when we would like to load our social sharing links. For example, if we have a page with ten posts, each with their own set of Facebook Like, Google+ Share, and Twitter Share links, they could take some time to load. Using WPSocialite, you can load those individually when the user scrolls or hovers over a specific post.
+
+= Can I add the social links myself instead of letting the plugin place them? =
+
+Of course! Use the "manual" setting under the plugin settings (Settings->Discussion) and then use the following template tags in your template to display the links however you please.
 
 The first template tag is to echo out the markup and display WPSocialite:
 
-<code><?php wpsocialite_markup('large'); ?></code>
+`<?php wpsocialite_markup('large'); ?>`
 
 The second template tag is to get WPSocialite's mark up and place it in an object, if needed:
 
-<code><?php
+`<?php
     $wpsocialite =  get_wpsocialite_markup('small');
     echo $wpsocialite;
-?></code>
+?>`
 
 When using this method, be sure to include "large" or "small" inside the function (as seen above) to define which style WPSocialite will use to display your social links.
 
-You can also use the shortcode [wpsocialite size="large"] or [wpsocialite size="small"] in a post or page and it will display the social sharing buttons anywhere you like.
+You can also use the shortcode `[wpsocialite size="large"]` or `[wpsocialite size="small"]` in a post or page and it will display the social sharing buttons anywhere you like.
 
-## Disable Script Loading
+= Can I disable the plugins script loading in order to manually add the CSS and Javascript myself? =
 
-By dropping the following code into your wp-config.php file you will tell the plugin to not load its CSS and Javascript and give you the ability to add it manually.
+Yes! By dropping the following code into your wp-config.php file you will tell the plugin to not load its CSS and Javascript and give you the ability to add it manually.
 
-<code>define('WPSOCIALITE_LOADSCRIPTS', false);</code>
+`define('WPSOCIALITE_LOADSCRIPTS', false);`
 
 Setting this to false tells the plugin to not load any Javascript. If you want the plugin to automatically load it again, simply set this to true or remove it completely.
 
 To stop the plugin from automatically loading its CSS, you would use the following line in the same way:
 
-<code>define( 'WPSOCIALITE_LOADSTYLES', false);</code>
+`define( 'WPSOCIALITE_LOADSTYLES', false);`
+
 
 Please note, when using this method if you are loading any social networks with an external file (Pinterest, for example), you will also have to load the javascript file associated with the network (wpsocialite/Socialite/extensions/socialite.pinterest.js).
 
-=======
-# Socialite
 
-### Because if you're selling your soul, you may as well do it asynchronously.
+== Screenshots ==
 
-Socialite provides a very easy way to implement and activate a plethora of social sharing buttons — any time you wish. On document load, on article hover, on any event!
+1. WPSocialite shown before a post, before load.
+2. WPSocialite shown before a post, after hover.
+3. Plugin settings, located in Settings->Discussion
 
-[For a demo and documentation visit: **socialitejs.com**](http://www.socialitejs.com/)
+== Changelog ==
 
-Author: David Bushell [http://dbushell.com](http://dbushell.com/) [@dbushell](http://twitter.com/dbushell/)
+= 2.0 - February 9, 2013 =
+* Code Cleanup, added shortcode additions, Twitter Follow button.
 
-Copyright © 2012
+= 1.6 =
+* Pinterest Fix
 
-## Features and Benefits
+= 1.5 =
+* Adding shortcode option to display WpSocialite
 
-* No more tedious copy/paste!
-* No dependencies.
-* Loads external resources only when needed.
-* Less than 2kb when minified and compressed.
-* More accessible and styleable defaults/fallbacks.
-* Built in support for Twitter, Google+, Facebook and LinkedIn.
-* Easily extendable with other social networks.
+= 1.4.5 =
+* Fixed in_array error being thrown due to post type check.
 
-## Functions
+= 1.4.4 =
+* Fixed WP_Trip_excerpt Issue.
 
-	<a href="http://twitter.com/share" class="socialite twitter" data-text="Socialite.js" data-url="http://socialitejs.com" data-count="vertical" data-via="dbushell" rel="nofollow" target="_blank">
-		Share on Twitter
-	</a>
+= 1.4.3 =
+* Adds localization support and allows you to select the CPT WPSocialite displays on.
 
-### Load
+= 1.4.2 =
+* Fixed Pinterest loading all at once. Corrected readme instructions for manual usage. Removed class selection option.
 
-	Socialite.load();
+= 1.4.1 =
+* Quickfix for the issues with GIT and SVN Repo. Also added ability to disable autoloading CSS and JS. See FAQ for more information.
 
-`load` will search the document for elements with the class `socialite` and magically transform them into sharing buttons (based on a network class and data-* attributes).
+= 1.4 =
+* Cleaned up CSS and added media call to pinterest button.
 
-	Socialite.load(context);
+= 1.3 =
+* Major Bugfix, CSS ID calls causing feed issues. Changed to classes.
 
-Be kind! Provide an element to search within using `context` rather than the whole document.
+= 1.2 =
+* Added ability to enable/disable different social networks. Choose which to display!
+* General repository and plugin cleanup.
 
-### Activate
+= 1.1 =
+* Updated to latest version of SocialiteJS
 
-	Socialite.activate(element, 'network');
-
-`activate` replaces a single element (or an array of) with the specific social network button. The following are built in by default: `twitter`, `plusone`, `facebook`, `linkedin`.
-
-### Extend
-
-	Socialite.extend('network', function);
+= 1.0 =
+* First version, here goes nothing!
 
 
-With `extend` you can add more social networks! The `function` is called by `Socialite.load` and `Socialite.activate` to replace the default element with the shiny sharing button.
+== Upgrade Notice ==
+
+= 2.0 February 9, 2013 =
+* Code Cleanup, added shortcode additions, Twitter Follow button.
+
+= 1.6 =
+* Pinterest Fix
+
+= 1.5 =
+* Adding shortcode option to display WpSocialite
+
+= 1.4.5 =
+* Fixed in_array error being thrown due to post type check.
+
+= 1.4.4 =
+* Fixes WP_Trip_excerpt Issue.
+
+= 1.4.3 =
+* Adds localization support and allows you to select the CPT WPSocialite displays on.
+
+= 1.4.2 =
+Fixed Pinterest loading all at once. Removed class selection option.
+
+= 1.4.1 =
+Cleaned up files and added ability to disable automatic loading of JS and CSS. Upgrade to ensure no compatability issues arise.
+
+= 1.0 =
+None as of yet.
