@@ -20,8 +20,10 @@ No one likes long load times, but we all want to be able to share our content vi
 <?php
 $args = array(
     'size' => 'large' //choose which size buttons to display.
-    'url' => 'http://google.com', //use this to override the url that is sent to WPSocialite. Only use for standalone button, not in the loop.
-    'button_override' => 'facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus' //used to override buttons that are displayed. Add and remove as needed.
+    'url' => 'http://google.com', 
+    	//use this to override the url that is sent to WPSocialite. Only use for standalone button, not in the loop.
+    'button_override' => 'facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus' 
+    	//used to override buttons that are displayed. Add and remove as needed.
 );
 wpsocialite_markup( $args ); ?>
 ```
@@ -35,7 +37,7 @@ button_override="facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus"
 ```
 
 ## Installation 
-
+You can download the plugin in the Wordpress Plugin Repo here: [http://wordpress.org/extend/plugins/wpsocialite/](http://wordpress.org/extend/plugins/wpsocialite/)
 1. Download the wpsocialite folder and upload it to {your-wp-directory}/wp-content/plugins folder.
 2. Visit Your-website.com/wp-admin/plugins.php and activate WPSocialite.
 3. Head to Settings->Discussion and scroll to "WPSocialite" settings to configure the plugin.
