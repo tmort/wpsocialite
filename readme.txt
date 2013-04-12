@@ -17,7 +17,7 @@ No one likes long load times, but we all want to be able to share our content vi
 = Template Tag =
 `<?php
 $args = array(
-    'size' => 'large' //choose which size buttons to display.
+    'size' => 'large', //choose which size buttons to display.
     'url' => 'http://google.com', //use this to override the url that is sent to WPSocialite. Not recommended to use in loop.
     'button_override' => 'facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus' //used to override buttons that are displayed. Add and remove as needed.
 );
