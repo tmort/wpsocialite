@@ -4,7 +4,7 @@ Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909, wpinit
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,9 @@ Please note, when using this method if you are loading any social networks with 
 3. Plugin settings, located in Settings->Discussion
 
 == Changelog ==
+
+= 2.1 - April 17, 2013 =
+* Bugfix - Twitter Username did not populate twitter follow button.
 
 = 2.0 - February 9, 2013 =
 * Code Cleanup, added shortcode additions, Twitter Follow button.
