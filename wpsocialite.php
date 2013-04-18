@@ -49,21 +49,29 @@ if (!class_exists("wpsocialite")) {
         function __construct() {
             self::$instance = $this;
 
-            add_action( 	'init',                 	array( $this, 'init'                           	) );
-            add_action( 	'wp_footer',            	array( $this, 'wpsocialite_localize_script'    	), 20);
+            add_action(     'init',                     array( $this, 'init'                            ) );
+            add_action(     'wp_footer',                array( $this, 'wpsocialite_localize_script'     ), 20);
 
-            add_action( 	'admin_init',           	array( $this, 'admin_init'                     	) );
-            add_action( 	'admin_footer',            	array( $this, 'admin_footer'					), 20);
+            add_action(     'admin_init',               array( $this, 'admin_init'                      ) );
+            add_action(     'admin_footer',             array( $this, 'admin_footer'                    ), 20);
 
-            add_filter( 	'body_class',           	array( $this, 'wpsocialite_body_class'         	) );
-            add_filter( 	'the_content',          	array( $this, 'wpsocialite_filter_content'     	) );
-            add_filter(		'mce_external_plugins',  	array( $this, 'wpsocialite_shortcode_plugin'   	) );
-            add_filter(		'mce_buttons',           	array( $this, 'wpsocialite_shortcode_button'   	) );
-            add_filter(		'plugin_action_links',   	array( $this, 'wpsocialite_settings_link'      	), 10, 2 );
-            add_shortcode( 	'wpsocialite',       		array( $this, 'wpsocialite_shortcode'          	) );
+            add_filter(     'body_class',               array( $this, 'wpsocialite_body_class'          ) );
+            if( get_option( 'wpsocialite_content_priority' ) ){
+                add_filter( 'the_content',              array( $this, 'wpsocialite_filter_content'      ), get_option( 'wpsocialite_content_priority' ) );
+            } else {
+            add_filter(     'the_content',              array( $this, 'wpsocialite_filter_content'      ) );
+            }
+            add_filter(     'mce_external_plugins',     array( $this, 'wpsocialite_shortcode_plugin'    ) );
+            add_filter(     'mce_buttons',              array( $this, 'wpsocialite_shortcode_button'    ) );
+            add_filter(     'plugin_action_links',      array( $this, 'wpsocialite_settings_link'       ), 10, 2 );
+            add_shortcode(  'wpsocialite',              array( $this, 'wpsocialite_shortcode'           ) );
 
             if( get_option( 'wpsocialite_excerpt' ) == 1 ){
-                add_filter( 'the_excerpt',      		array( $this, 'wpsocialite_filter_content'     	) );
+                if( get_option( 'wpsocialite_excerpt_priority' ) ){
+                    add_filter( 'the_excerpt',              array( $this, 'wpsocialite_filter_content'      ), get_option( 'wpsocialite_excerpt_priority' ) );
+                } else {
+                add_filter( 'the_excerpt',              array( $this, 'wpsocialite_filter_content'      ) );
+            }
             }
 
         } // __construct
@@ -74,8 +82,8 @@ if (!class_exists("wpsocialite")) {
 
             if( WPSOCIALITE_LOADSCRIPTS && !is_admin() ) {
 
-                wp_enqueue_script('socialite-lib', 	plugin_dir_url(__FILE__).'Socialite/socialite.min.js', 	array('jquery'), 		'2.0', true);
-                wp_enqueue_script('wpsocialite', 	plugin_dir_url(__FILE__).'wpsocialite.js', 				array('socialite-lib'), '1.0', true);
+                wp_enqueue_script('socialite-lib',  plugin_dir_url(__FILE__).'Socialite/socialite.min.js',  array('jquery'),        '2.0', true);
+                wp_enqueue_script('wpsocialite',    plugin_dir_url(__FILE__).'wpsocialite.js',              array('socialite-lib'), '1.0', true);
 
                 $scripts = self::wpsocialite_list_network_options(null, null, null, null);
 
@@ -106,8 +114,8 @@ if (!class_exists("wpsocialite")) {
             // overrides Socialite setup with valid locales
 
             $locale = get_locale();
-            $c5 	= $locale;
-            $c2 	= substr($c5, 0, 2);
+            $c5     = $locale;
+            $c2     = substr($c5, 0, 2);
 
             $fb_locales = array('af_ZA','ar_AR','az_AZ','be_BY','bg_BG','bn_IN','bs_BA','ca_ES','cs_CZ','cy_GB','da_DK','de_DE','el_GR','en_GB','en_US','eo_EO','es_ES','es_LA','et_EE','eu_ES','fa_IR','fi_FI','fo_FO','fr_CA','fr_FR','fy_NL','ga_IE','gl_ES','he_IL','hi_IN','hr_HR','hu_HU','hy_AM','id_ID','is_IS','it_IT','ja_JP','ka_GE','km_KH','ko_KR','ku_TR','la_VA','lt_LT','lv_LV','mk_MK','ml_IN','ms_MY','nb_NO','ne_NP','nl_NL','nn_NO','pa_IN','pl_PL','ps_AF','pt_BR','pt_PT','ro_RO','ru_RU','sk_SK','sl_SI','sq_AL','sr_RS','sv_SE','sw_KE','ta_IN','te_IN','th_TH','tl_PH','tr_TR','uk_UA','vi_VN','zh_CN','zh_HK','zh_TW');
             $tw_locales = array('en','fr','de','it','es','ko','ja');
@@ -142,45 +150,45 @@ if (!class_exists("wpsocialite")) {
         public function wpsocialite_markup( $args = array() ){
 
             $default_args = array(
-                'size'				=> get_option('wpsocialite_style'),
-                'url'				=> null,
-                'button_override'	=> 'facebook,twitter-share,gplus,linkedin,pinterest,twitter-follow',
+                'size'              => get_option('wpsocialite_style'),
+                'url'               => null,
+                'button_override'   => 'facebook,twitter-share,gplus,linkedin,pinterest,twitter-follow',
             );
             extract( wp_parse_args($args,$default_args), EXTR_SKIP );
             $button_override = str_replace(' ', '', $button_override);
-			$button_override = explode(',', esc_attr($button_override));
+            $button_override = explode(',', esc_attr($button_override));
 
             global $wp_query;
-            $post 		= $wp_query->post;
-            $id 		= $post->ID;
-            $imagelink 	= wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'full' ); //get the featured image url
-            $title 		= trim($post->post_title);
+            $post       = $wp_query->post;
+            $id         = $post->ID;
+            $imagelink  = wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'full' ); //get the featured image url
+            $title      = trim($post->post_title);
             if( $url ){
-            	$postlink 	= $url;
+                $postlink   = $url;
             } else {
-            	$postlink 	= get_permalink($id);
+                $postlink   = get_permalink($id);
             }
 
-            $value 		= get_option('wpsocialite_networkoptions');
-            $buttons 	= self::wpsocialite_list_network_options($postlink, $title, $size, $imagelink[0]);
+            $value      = get_option('wpsocialite_networkoptions');
+            $buttons    = self::wpsocialite_list_network_options($postlink, $title, $size, $imagelink[0]);
 
             $return = '<ul class="wpsocialite social-buttons '.$size.'">';
 
-	            foreach ( $buttons as $button ) {
+                foreach ( $buttons as $button ) {
 
-	            	if(in_array($button['slug'], $button_override)){
+                    if(in_array($button['slug'], $button_override)){
 
-		                if(isset($value[$button['slug']])) :
-		                    $markup = 'markup_'.$size;
-		                else :
-		                    continue;
-		                endif;
-		                $return .= '<li>'.$button[$markup].'</li>';
+                        if(isset($value[$button['slug']])) :
+                            $markup = 'markup_'.$size;
+                        else :
+                            continue;
+                        endif;
+                        $return .= '<li>'.$button[$markup].'</li>';
 
-	            	}
-	            }
+                    }
+                }
 
-            $return 	.= '</ul>';
+            $return     .= '</ul>';
 
             return $return;
 
@@ -189,10 +197,10 @@ if (!class_exists("wpsocialite")) {
         public function wpsocialite_filter_content( $content ){
             global $wp_current_filter;
 
-            $single 	= get_option('wpsocialite_single');
-            $position 	= get_option('wpsocialite_position');
+            $single     = get_option('wpsocialite_single');
+            $position   = get_option('wpsocialite_position');
             $post_types = get_option('wpsocialite_post_types',array());
-            $pt 		= get_post_type();
+            $pt         = get_post_type();
 
             if ( $single && !is_singular() ){
                 return $content;
@@ -204,11 +212,11 @@ if (!class_exists("wpsocialite")) {
 
             if( is_feed() ) {
                 return $content;
-			}
+            }
 
             if( in_array('get_the_excerpt', $wp_current_filter) ) {
                 return $content;
-			}
+            }
 
             switch($position){
                 case 'manual':
@@ -234,126 +242,158 @@ if (!class_exists("wpsocialite")) {
         public function admin_init() {
 
             add_settings_section(
-                $id 		= 'wpsocialite',
-                $title 		= __('WPSocialite','wpsocialite'),
-                $callback 	= array($this,'wpsocialite_section'),
-                $page 		= 'discussion'
+                $id         = 'wpsocialite',
+                $title      = __('WPSocialite','wpsocialite'),
+                $callback   = array($this,'wpsocialite_section'),
+                $page       = 'discussion'
             );
 
             add_settings_field(
-                $id 		= 'wpsocialite_mode',
-                $title 		= __('Mode','wpsocialite'),
-                $callback 	= array( $this, 'wpsocialite_select' ),
-                $page 		= 'discussion',
-                $section 	= 'wpsocialite',
+                $id         = 'wpsocialite_mode',
+                $title      = __('Mode','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_select' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
                 $args       = array(
-	                'name'        => 'wpsocialite_mode',
-	                'description' => 'Choose the event to which Socialite will activate.',
-	                'options'     => array(
+                    'name'        => 'wpsocialite_mode',
+                    'description' => 'Choose the event to which Socialite will activate.',
+                    'options'     => array(
                         'hover'     => _('Hover'),
                         'scroll'    => _('Scroll'),
-	                ),
+                    ),
                 )
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_mode' );
 
             add_settings_field(
-                $id 		= 'wpsocialite_excerpt',
-                $title 		= __('Apply to Excerpt','wpsocialite'),
-                $callback 	= array( $this, 'wpsocialite_checkbox' ),
-                $page 		= 'discussion',
-                $section 	= 'wpsocialite',
+                $id         = 'wpsocialite_excerpt',
+                $title      = __('Apply to Excerpt','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_checkbox' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
                 $args       = array(
-                	'name'        => 'wpsocialite_excerpt',
-                	'description' => 'Display WPSocialite sharing buttons in the excerpt of your posts.',
-                	'options'     => array(
-                        '1'	=> _('Display WPSocialite sharing buttons in the excerpt of your posts.'),
+                    'name'        => 'wpsocialite_excerpt',
+                    'description' => 'Display WPSocialite sharing buttons in the excerpt of your posts.',
+                    'options'     => array(
+                        '1' => _('Display WPSocialite sharing buttons in the excerpt of your posts.'),
                     ),
                 )
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_excerpt' );
 
             add_settings_field(
-                $id 		= 'wpsocialite_single',
-                $title 		= __('Apply to Single only','wpsocialite'),
-                $callback 	= array( $this, 'wpsocialite_checkbox' ),
-                $page 		= 'discussion',
-                $section 	= 'wpsocialite',
+                $id         = 'wpsocialite_single',
+                $title      = __('Apply to Single only','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_checkbox' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
                 $args       = array(
-	                'name'        => 'wpsocialite_single',
-	                'description' => '',
-	                'options'     => array(
-	                	'1' => _('Display WPSocialite sharing buttons only on single posts.'),
-	                ),
+                    'name'        => 'wpsocialite_single',
+                    'description' => '',
+                    'options'     => array(
+                        '1' => _('Display WPSocialite sharing buttons only on single posts.'),
+                    ),
                 )
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_single' );
 
             add_settings_field(
-                $id 		= 'wpsocialite_style',
-                $title 		= __('Style','wpsocialite'),
-                $callback 	= array( $this, 'wpsocialite_select' ),
-                $page 		= 'discussion',
-                $section 	= 'wpsocialite',
+                $id         = 'wpsocialite_excerpt_priority',
+                $title      = __('Excerpt Priority','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_text_input' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
                 $args       = array(
-                	'name'        => 'wpsocialite_style',
-                	'description' => 'Choose the type of socialite style you would like to use.',
-                	'options'     => array(
-                        'large'	=> _('Large'),
-                        'small'	=> _('Small'),
+                    'name'        => 'wpsocialite_excerpt_priority',
+                    'description' => 'Assign priority to <code>the_excerpt</code> filter for WPSocialite. Default (10) is used if blank.',
+                    'options'     => array(
+                        'excerpt_priority'  => _(''),
+                    ),
+                )
+            );
+            register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_excerpt_priority' );
+    
+            add_settings_field(
+                $id         = 'wpsocialite_content_priority',
+                $title      = __('Content Priority','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_text_input' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
+                $args       = array(
+                    'name'        => 'wpsocialite_content_priority',
+                    'description' => 'Assign priority to <code>the_content</code> filter for WPSocialite. Default (10) is used if blank.',
+                    'options'     => array(
+                        'content_priority'  => _(''),
+                    ),
+                )
+            );
+            register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_content_priority' );
+
+            add_settings_field(
+                $id         = 'wpsocialite_style',
+                $title      = __('Style','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_select' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
+                $args       = array(
+                    'name'        => 'wpsocialite_style',
+                    'description' => 'Choose the type of socialite style you would like to use.',
+                    'options'     => array(
+                        'large' => _('Large'),
+                        'small' => _('Small'),
                     ),
                 )
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_style' );
 
             add_settings_field(
-                $id 		= 'wpsocialite_position',
-                $title 		= __('Position','wpsocialite'),
-                $callback 	= array( $this, 'wpsocialite_select' ),
-                $page 		= 'discussion',
-                $section 	= 'wpsocialite',
+                $id         = 'wpsocialite_position',
+                $title      = __('Position','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_select' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
                 $args       = array(
-                	'name'        => 'wpsocialite_position',
-                	'description' => sprintf(__('Choose where you would like the social icons to appear, before or after the main content. If set to <strong>Manual</strong>, you can use this code to place your Social links anywhere you like in your templates files: %s','wplazyspotify'),'<pre>&lt;?php wpsocialite_markup(); ?&gt;</pre>'),
-                	'options'     => array(
-                        'before'	=> _('Top'),
-                        'after'		=> _('Bottom'),
-                        'both'		=> _('Top and Bottom'),
-                        'manual'	=> _('Manual'),
+                    'name'        => 'wpsocialite_position',
+                    'description' => sprintf(__('Choose where you would like the social icons to appear, before or after the main content. If set to <strong>Manual</strong>, you can use this code to place your Social links anywhere you like in your templates files: %s','wplazyspotify'),'<pre>&lt;?php wpsocialite_markup(); ?&gt;</pre>'),
+                    'options'     => array(
+                        'before'    => _('Top'),
+                        'after'     => _('Bottom'),
+                        'both'      => _('Top and Bottom'),
+                        'manual'    => _('Manual'),
                     ),
                 )
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_position' );
 
             add_settings_field(
-                $id 		= 'wpsocialite_post_types',
-                $title 		= __('Post Types','wpsocialite'),
-                $callback 	= array( $this, 'wpsocialite_post_types' ),
-                $page 		= 'discussion',
-                $section 	= 'wpsocialite'
+                $id         = 'wpsocialite_post_types',
+                $title      = __('Post Types','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_post_types' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite'
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_post_types' );
 
             add_settings_field(
-                $id 		= 'wpsocialite_networkoptions',
-                $title 		= __('Network Options','wpsocialite'),
-                $callback 	= array( $this, 'wpsocialite_networkoptions' ),
-                $page 		= 'discussion',
-                $section 	= 'wpsocialite'
+                $id         = 'wpsocialite_networkoptions',
+                $title      = __('Network Options','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_networkoptions' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite'
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_networkoptions' );
 
             add_settings_field(
-                $id 		= 'wpsocialite_twitter_username',
-                $title 		= __('Twitter Username','wpsocialite'),
-                $callback 	= array( $this, 'wpsocialite_text_input' ),
-                $page 		= 'discussion',
-                $section 	= 'wpsocialite',
+                $id         = 'wpsocialite_twitter_username',
+                $title      = __('Twitter Username','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_text_input' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
                 $args       = array(
-                	'name'        => 'wpsocialite_twitter_username',
-                	'description' => 'Enter your twitter username to enable the twitter follow button.',
-                	'options'     => array(
-                        'twitter_username'	=> _(''),
+                    'name'        => 'wpsocialite_twitter_username',
+                    'description' => 'Enter your twitter username to enable the twitter follow button.',
+                    'options'     => array(
+                        'twitter_username'  => _(''),
                     ),
                 )
             );
@@ -362,24 +402,24 @@ if (!class_exists("wpsocialite")) {
         }
 
         public function admin_footer() {
-        	echo '<script type="text/javascript">
-				jQuery(document).ready(function($) {
-				    var twitterusername = $("#wpsocialite_twitter_username").closest("tr");
-				    var twitterfollow = $("input:checkbox[name=\'wpsocialite_networkoptions[twitter-follow]\']");
-				    twitterusername.hide();
+            echo '<script type="text/javascript">
+                jQuery(document).ready(function($) {
+                    var twitterusername = $("#wpsocialite_twitter_username").closest("tr");
+                    var twitterfollow = $("input:checkbox[name=\'wpsocialite_networkoptions[twitter-follow]\']");
+                    twitterusername.hide();
 
-				    if( twitterfollow.is(":checked") ){
-						twitterusername.show();
-				    }
-			    	twitterfollow.on(\'change\', function() {
-			    		if(twitterfollow.is(":checked")){
-			    			twitterusername.show();
-			    		} else {
-			    			twitterusername.hide();
-			    		}
-			    	});
-				});
-        	</script>';
+                    if( twitterfollow.is(":checked") ){
+                        twitterusername.show();
+                    }
+                    twitterfollow.on(\'change\', function() {
+                        if(twitterfollow.is(":checked")){
+                            twitterusername.show();
+                        } else {
+                            twitterusername.hide();
+                        }
+                    });
+                });
+            </script>';
         }
 
         public function wpsocialite_section() {
@@ -408,9 +448,9 @@ if (!class_exists("wpsocialite")) {
 
             $checked = ( isset( $args['name'] ) ) ? get_option($args['name']) : '';
             echo '<label for="' . esc_attr( $args['name'] ) . '">';
-            	foreach ( (array) $args['options'] as $value => $label ){
+                foreach ( (array) $args['options'] as $value => $label ){
                     echo '<input name="' . esc_attr( $args['name'] ) . '" type="checkbox" id="' . esc_attr( $args['name'] ) . '" value="1"  '.checked($checked, 1, false).'> ' . $label;
-            	}
+                }
             echo '</label>';
 
         }
@@ -423,11 +463,13 @@ if (!class_exists("wpsocialite")) {
             $option_value = ( isset( $args['name'] ) ) ? get_option($args['name']) : '';
 
             echo '<label for="' . esc_attr( $args['name'] ) . '">';
-            	foreach ( (array) $args['options'] as $value => $label ){
+                foreach ( (array) $args['options'] as $value => $label ){
                     echo '<input name="' . esc_attr( $args['name'] ) . '" type="text" id="' . esc_attr( $args['name'] ) . '" value="'.esc_attr($option_value).'" > ' . $label;
-            	}
+                }
             echo '</label>';
 
+            if ( ! empty( $args['description'] ) )
+                echo ' <p class="description">' . $args['description'] . '</p>';
         }
 
         public function wpsocialite_post_types() {
@@ -451,9 +493,9 @@ if (!class_exists("wpsocialite")) {
 
         public function wpsocialite_networkoptions() {
 
-            $value 		= get_option('wpsocialite_networkoptions');
-            $buttons 	= $this->wpsocialite_list_network_options();
-            $output 	= '';
+            $value      = get_option('wpsocialite_networkoptions');
+            $buttons    = $this->wpsocialite_list_network_options();
+            $output     = '';
 
             foreach ($buttons as $button){
                 if(isset($value[$button['slug']])) :
