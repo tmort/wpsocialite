@@ -144,7 +144,7 @@ if (!class_exists("wpsocialite")) {
             $default_args = array(
                 'size'				=> get_option('wpsocialite_style'),
                 'url'				=> null,
-                'button_override'	=> 'facebook,twitter-share,gplus,linkedin,pinterest,twitter-follow',
+                'button_override'	=> 'facebook,twitter-share,gplus,linkedin,pinterest,twitter-follow,stumbleupon',
             );
             extract( wp_parse_args($args,$default_args), EXTR_SKIP );
             $button_override = str_replace(' ', '', $button_override);
@@ -520,6 +520,13 @@ if (!class_exists("wpsocialite")) {
                     'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
                     'external_file' => 'socialite.pinterest.js'
+                ),
+                'stumbleupon' => array(
+                    'name' => 'StumbleUpon(Beta)',
+                    'slug' => 'stumbleupon',
+                    'markup_large' => '<a href="http://www.stumbleupon.com/submit?url='.$link.'&amp;title='.$title.'" class="socialite stumbleupon-share" data-url="'.$link.'" data-title="'.$title.'" data-layout="5" rel="nofollow"><span class="vhidden">'.apply_filters('wpsocialite_share_stumbleupon_label',__('Share on StumbleUpon','wpsocialite')).'</span></a>',
+                    'markup_small' => '<a href="http://www.stumbleupon.com/submit?url='.$link.'&amp;title='.$title.'" class="socialite stumbleupon-share" data-url="'.$link.'" data-title="'.$title.'" data-layout="1" rel="nofollow"><span class="vhidden">'.apply_filters('wpsocialite_share_stumbleupon_label',__('Share on StumbleUpon','wpsocialite')).'</span></a>',
+                    'external_file' => 'socialite.stumbleupon.js'
                 ),
                 'twitter-follow' => array(
                     'name' => 'Twitter Follow',

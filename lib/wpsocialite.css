@@ -28,7 +28,9 @@
 .wpsocialite.large .facebook-like { width: 50px; height: 65px; background-position: -145px 0; }
 .wpsocialite.large .linkedin-share { width: 60px; height: 65px; background-position: -215px 0; }
 .wpsocialite.large .pinterest-pinit { width: 50px; height: 65px; background-position: -367px 0; }
-
+.wpsocialite.large .stumbleupon-share { width: 50px; height: 65px; background-position: -439px 0; }
+.wpsocialite.large .twitter-follow { width: 56px; height: 65px; background-position: -509px 0; }
+.wpsocialite.large .twitter-follow.socialite-loaded{ width:100%; }
 /*
  * Socialite Custom Default
  */
@@ -46,3 +48,5 @@
 .wpsocialite.small .facebook-like { background-position: 0 -90px; }
 .wpsocialite.small .linkedin-share { background-position: 0 -135px; }
 .wpsocialite.small .pinterest-pinit { background-position: 0 -175px; }
+.wpsocialite.small .stumbleupon-share { background-position: 0 -225px; }
+.wpsocialite.small .twitter-follow.socialite-loaded{ width:200px; }
