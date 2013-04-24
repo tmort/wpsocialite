@@ -4,7 +4,7 @@ Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909, wpinit
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,14 +19,14 @@ No one likes long load times, but we all want to be able to share our content vi
 $args = array(
     'size' => 'large', //choose which size buttons to display.
     'url' => 'http://google.com', //use this to override the url that is sent to WPSocialite. Not recommended to use in loop.
-    'button_override' => 'facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus' //used to override buttons that are displayed. Add and remove as needed.
+    'button_override' => 'facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus,stumbleupon' //used to override buttons that are displayed. Add and remove as needed.
 );
 wpsocialite_markup( $args ); ?>`
 
 
 = Shortcode =
 
-`[wpsocialite size="small" url="http://google.com" button_override="facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus"]`
+`[wpsocialite size="small" url="http://google.com" button_override="facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus,stumbleupon"]`
 
 == Installation ==
 
@@ -88,6 +88,9 @@ Please note, when using this method if you are loading any social networks with 
 
 == Changelog ==
 
+= 2.2 April 24, 2013 =
+* Added StumbleUpon Social Sharing Button
+
 = 2.1 - April 17, 2013 =
 * Bugfix - Twitter Username did not populate twitter follow button.
 
@@ -133,6 +136,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 == Upgrade Notice ==
+
+= 2.2 April 24, 2013 =
+* Added StumbleUpon Social Sharing Button
 
 = 2.0 February 9, 2013 =
 * Code Cleanup, added shortcode additions, Twitter Follow button.

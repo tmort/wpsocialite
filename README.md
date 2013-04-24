@@ -5,7 +5,7 @@
 * Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 * Requires at least: 3.0
 * Tested up to: 3.5.1
-* Stable tag: 2.1
+* Stable tag: 2.2
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ $args = array(
     'size' => 'large' //choose which size buttons to display.
     'url' => 'http://google.com',
     	//use this to override the url that is sent to WPSocialite. Only use for standalone button, not in the loop.
-    'button_override' => 'facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus'
+    'button_override' => 'facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus,stumbleupon'
     	//used to override buttons that are displayed. Add and remove as needed.
 );
 wpsocialite_markup( $args ); ?>
@@ -33,7 +33,7 @@ wpsocialite_markup( $args ); ?>
 
 ```
 [wpsocialite size="small" url="http://google.com"
-button_override="facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus"]
+button_override="facebook,twitter-share,twitter-follow,pinterest,linkedin,gplus,stumbleupon"]
 ```
 
 ## Installation
@@ -95,6 +95,9 @@ Please note, when using this method if you are loading any social networks with 
 3. Plugin settings, located in Settings->Discussion
 
 ## Changelog
+
+### 2.2 April 24, 2013
+* Added StumbleUpon Social Sharing Button
 
 ###  2.0 - February 9, 2013
 
