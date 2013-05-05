@@ -73,8 +73,14 @@ if (!class_exists("wpsocialite")) {
             load_plugin_textdomain('wpsocialite', false, dirname( plugin_basename(__FILE__) ).'/lang/');
 
             if( WPSOCIALITE_LOADSCRIPTS && !is_admin() ) {
+                // do we need jQuery ?
+                $dependencyLib = array('jquery');
+                if ( get_option( 'wpsocialite_jquery' ) == true ) {
+                  // no need of jquery
+                  $dependencyLib = array();
+                }
 
-                wp_enqueue_script('socialite-lib', 	plugin_dir_url(__FILE__).'Socialite/socialite.min.js', 	array('jquery'), 		'2.0', true);
+                wp_enqueue_script('socialite-lib', 	plugin_dir_url(__FILE__).'Socialite/socialite.min.js', $dependencyLib, 		'2.0', true);
                 wp_enqueue_script('wpsocialite', 	plugin_dir_url(__FILE__).'wpsocialite.js', 				array('socialite-lib'), '1.0', true);
 
                 $scripts = self::wpsocialite_list_network_options(null, null, null, null);
@@ -83,7 +89,7 @@ if (!class_exists("wpsocialite")) {
 
                 foreach ($scripts as $script){
                     if( isset($value[$script['slug']]) && $script['external_file'] !== false )
-                        wp_enqueue_script('socialite-'.$script['slug'].'', plugin_dir_url(__FILE__).'Socialite/extensions/'.$script['external_file'].'', array('jquery'), '1.0', true);
+                        wp_enqueue_script('socialite-'.$script['slug'].'', plugin_dir_url(__FILE__).'Socialite/extensions/'.$script['external_file'].'', $dependencyLib, '1.0', true);
                 }
 
             }
@@ -284,6 +290,22 @@ if (!class_exists("wpsocialite")) {
                 )
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_mode' );
+
+            add_settings_field(
+                $id 		= 'wpsocialite_jquery',
+                $title 		= __('Remove jQuery','wpsocialite'),
+                $callback 	= array( $this, 'wpsocialite_checkbox' ),
+                $page 		= 'discussion',
+                $section 	= 'wpsocialite',
+                $args       = array(
+	                'name'        => 'wpsocialite_jquery',
+	                'description' => '',
+	                'options'     => array(
+	                	'1' => _('Remove jQuery dependency from Socialite (it will confict, if you already have jQuery in your pages)'),
+	                ),
+                )
+            );
+            register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_jquery' );
 
             add_settings_field(
                 $id 		= 'wpsocialite_excerpt',
