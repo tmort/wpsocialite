@@ -4,7 +4,7 @@ Plugin Name: WPSocialite
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 2.2
+Version: 2.3
 Author URI: http://twmorton.com/
 
 =================================================================
@@ -153,8 +153,9 @@ if (!class_exists("wpsocialite")) {
             global $wp_query;
             $post 		= $wp_query->post;
             $id 		= $post->ID;
-            $imagelink 	= wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'full' ); //get the featured image url
+            $imagelink 	= self::wpsocialite_get_image( $id );
             $title 		= trim($post->post_title);
+
             if( $url ){
             	$postlink 	= $url;
             } else {
@@ -162,7 +163,7 @@ if (!class_exists("wpsocialite")) {
             }
 
             $value 		= get_option('wpsocialite_networkoptions');
-            $buttons 	= self::wpsocialite_list_network_options($postlink, $title, $size, $imagelink[0]);
+            $buttons 	= self::wpsocialite_list_network_options($postlink, $title, $size, $imagelink);
 
             $return = '<ul class="wpsocialite social-buttons '.$size.'">';
 
@@ -184,6 +185,33 @@ if (!class_exists("wpsocialite")) {
 
             return $return;
 
+        }
+
+        public function wpsocialite_get_image( $postID ) {
+            //try the featured image first
+            if(has_post_thumbnail()){
+                $imageattachment = wp_get_attachment_image_src( get_post_thumbnail_id( $postID ), 'full' );
+                $imagelink = $imageattachment[0];
+            } else {
+            //No featured image? Try for an attachment.
+                $args = array(
+                    'order'          => 'ASC',
+                    'post_parent'    => $postID,
+                    'post_type'      => 'attachment',
+                    'post_mime_type' => 'image',
+                    'post_status'    => null,
+                    'showposts'      => '1',
+                );
+                $attachments = get_posts($args);
+                if ($attachments) {
+                    foreach ($attachments as $attachment) {
+                        $imagelink = wp_get_attachment_url($attachment->ID, 'full', false, false);
+                    }
+                } else{
+                    $imagelink = null; //if there are no attachments set $imagelink to null
+                }
+            }
+            return $imagelink;
         }
 
         public function wpsocialite_filter_content( $content ){

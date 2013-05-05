@@ -5,7 +5,7 @@
 * Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909
 * Requires at least: 3.0
 * Tested up to: 3.5.1
-* Stable tag: 2.2
+* Stable tag: 2.3
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,9 @@ Please note, when using this method if you are loading any social networks with 
 
 ## Changelog
 
+### 2.3 May 5, 2013
+* Fixed image function when using Pinit Button
+
 ### 2.2 April 24, 2013
 * Added StumbleUpon Social Sharing Button
 
@@ -142,6 +145,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 ## Upgrade Notice
+
+### 2.3 May 5, 2013
+* Fixed image function when using Pinit Button
 
 ### 2.0 February 9, 2013
 * Code Cleanup, added shortcode additions, Twitter Follow button.

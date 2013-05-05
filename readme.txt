@@ -88,6 +88,9 @@ Please note, when using this method if you are loading any social networks with 
 
 == Changelog ==
 
+= 2.3 May 5, 2013 =
+* Fixed image function when using Pinit Button
+
 = 2.2 April 24, 2013 =
 * Added StumbleUpon Social Sharing Button
 
@@ -136,6 +139,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 == Upgrade Notice ==
+
+= 2.3 May 5, 2013 =
+* Fixed image function when using Pinit Button
 
 = 2.2 April 24, 2013 =
 * Added StumbleUpon Social Sharing Button
