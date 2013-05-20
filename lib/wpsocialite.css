@@ -31,6 +31,7 @@
 .wpsocialite.large .stumbleupon-share { width: 50px; height: 65px; background-position: -439px 0; }
 .wpsocialite.large .twitter-follow { width: 56px; height: 65px; background-position: -509px 0; }
 .wpsocialite.large .twitter-follow.socialite-loaded{ width:100%; }
+.wpsocialite.large .vkontakte-like { width: 50px; height: 65px; background:red; }
 /*
  * Socialite Custom Default
  */

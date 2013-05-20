@@ -83,7 +83,7 @@ if (!class_exists("wpsocialite")) {
 
                 foreach ($scripts as $script){
                     if( isset($value[$script['slug']]) && $script['external_file'] !== false )
-                        wp_enqueue_script('socialite-'.$script['slug'].'', plugin_dir_url(__FILE__).'Socialite/extensions/'.$script['external_file'].'', array('jquery'), '1.0', true);
+                        wp_enqueue_script('socialite-'.$script['slug'].'', $script['external_file'], array('jquery'), '1.0', true);
                 }
 
             }
@@ -117,8 +117,7 @@ if (!class_exists("wpsocialite")) {
             $tw_locale = (in_array($c2,$tw_locales))? $c2 : 'en';
             $gp_locale = (in_array($c5,$gp_locales))? str_replace('_', '-', $c5) : (in_array($c2,$gp_locales))? $c2 : 'en';
 
-
-            echo "<script type=\"text/javascript\">Socialite.setup({facebook:{lang:'$fb_locale',appId:null},twitter:{lang:'$tw_locale'},googleplus:{lang:'$gp_locale'}});</script>";
+            echo "<script type=\"text/javascript\">Socialite.setup({facebook:{lang:'$fb_locale',appId:null},twitter:{lang:'$tw_locale'},googleplus:{lang:'$gp_locale'},vkontakte:{apiId:'".get_option('wpsocialite_vkontakte_apiId')."'}});</script>";
 
         }
 
@@ -144,7 +143,7 @@ if (!class_exists("wpsocialite")) {
             $default_args = array(
                 'size'				=> get_option('wpsocialite_style'),
                 'url'				=> null,
-                'button_override'	=> 'facebook,twitter-share,gplus,linkedin,pinterest,twitter-follow,stumbleupon',
+                'button_override'	=> 'facebook,twitter-share,gplus,linkedin,pinterest,twitter-follow,stumbleupon,vkontakte-like',
             );
             extract( wp_parse_args($args,$default_args), EXTR_SKIP );
             $button_override = str_replace(' ', '', $button_override);
@@ -359,6 +358,22 @@ if (!class_exists("wpsocialite")) {
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_twitter_username' );
 
+            add_settings_field(
+                $id         = 'wpsocialite_vkontakte_apiId',
+                $title      = __('Vkontakte AppID','wpsocialite'),
+                $callback   = array( $this, 'wpsocialite_text_input' ),
+                $page       = 'discussion',
+                $section    = 'wpsocialite',
+                $args       = array(
+                    'name'        => 'wpsocialite_vkontakte_apiId',
+                    'description' => 'In order to use the vkontakte socialite settings you will need to register your site as an application on vk.com.',
+                    'options'     => array(
+                        'vkontakte_appid'  => _(''),
+                    ),
+                )
+            );
+            register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_vkontakte_apiId' );
+
         }
 
         public function admin_footer() {
@@ -378,6 +393,21 @@ if (!class_exists("wpsocialite")) {
 			    			twitterusername.hide();
 			    		}
 			    	});
+
+                    var vkontakte_appid_input = $("#wpsocialite_vkontakte_apiId").closest("tr");
+                    var vkontaktelike = $("input:checkbox[name=\'wpsocialite_networkoptions[vkontakte-like]\']");
+                    vkontakte_appid_input.hide();
+
+                    if( vkontaktelike.is(":checked") ){
+                        vkontakte_appid_input.show();
+                    }
+                    vkontaktelike.on(\'change\', function() {
+                        if(vkontaktelike.is(":checked")){
+                            vkontakte_appid_input.show();
+                        } else {
+                            vkontakte_appid_input.hide();
+                        }
+                    });
 				});
         	</script>';
         }
@@ -427,6 +457,8 @@ if (!class_exists("wpsocialite")) {
                     echo '<input name="' . esc_attr( $args['name'] ) . '" type="text" id="' . esc_attr( $args['name'] ) . '" value="'.esc_attr($option_value).'" > ' . $label;
             	}
             echo '</label>';
+            if ( ! empty( $args['description'] ) )
+                echo ' <p class="description">' . $args['description'] . '</p>';
 
         }
 
@@ -519,14 +551,15 @@ if (!class_exists("wpsocialite")) {
                     'slug' => 'pinterest',
                     'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
-                    'external_file' => 'socialite.pinterest.js'
+                    'external_file' => plugin_dir_url(__FILE__).'Socialite/extensions/socialite.pinterest.js',
+
                 ),
                 'stumbleupon' => array(
                     'name' => 'StumbleUpon(Beta)',
                     'slug' => 'stumbleupon',
                     'markup_large' => '<a href="http://www.stumbleupon.com/submit?url='.$link.'&amp;title='.$title.'" class="socialite stumbleupon-share" data-url="'.$link.'" data-title="'.$title.'" data-layout="5" rel="nofollow"><span class="vhidden">'.apply_filters('wpsocialite_share_stumbleupon_label',__('Share on StumbleUpon','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://www.stumbleupon.com/submit?url='.$link.'&amp;title='.$title.'" class="socialite stumbleupon-share" data-url="'.$link.'" data-title="'.$title.'" data-layout="1" rel="nofollow"><span class="vhidden">'.apply_filters('wpsocialite_share_stumbleupon_label',__('Share on StumbleUpon','wpsocialite')).'</span></a>',
-                    'external_file' => 'socialite.stumbleupon.js'
+                    'external_file' => plugin_dir_url(__FILE__).'Socialite/extensions/socialite.stumbleupon.js',
                 ),
                 'twitter-follow' => array(
                     'name' => 'Twitter Follow',
@@ -534,6 +567,13 @@ if (!class_exists("wpsocialite")) {
                     'markup_large' => '<a href="http://twitter.com/'.$twitter_username.'" class="socialite twitter-follow" data-text="'.$twitter_title.'" data-url="'.$link.'" data-size="large" data-width="" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://twitter.com/'.$twitter_username.'" class="socialite twitter-follow" data-text="'.$twitter_title.'" data-url="'.$link.'" data-size="small" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'external_file' => false
+                ),
+                'vkontakte-like' => array(
+                    'name' => 'Vkontakte Like',
+                    'slug' => 'vkontakte-like',
+                    'markup_large' => '<a href="http://vkontakte.ru/share.php?url='.$link.'" class="socialite vkontakte-like" data-title="'.$title.'" data-url="'.$link.'" data-size="large" data-width="" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_vkontakte_label',__('Share on Vkontakte.','wpsocialite')).'</span></a>',
+                    'markup_small' => '<a href="http://vkontakte.ru/share.php?url='.$link.'" class="socialite vkontakte-like" data-title="'.$title.'" data-url="'.$link.'" data-size="small" data-width="" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_vkontakte_label',__('Share on Vkontakte.','wpsocialite')).'</span></a>',
+                    'external_file' => plugin_dir_url(__FILE__).'Socialite/extensions/socialite.vkontakte.js',
                 ),
             );
 
