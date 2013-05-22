@@ -1,0 +1,181 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPSocialite\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-22 19:32-0300\n"
+"PO-Revision-Date: 2013-05-22 19:33-0300\n"
+"Last-Translator: Rafael Funchal <rafaelfunchal@gmail.com>\n"
+"Language-Team: Rafael Funchal <rafaelfunchal@gmail.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: wpsocialite.php:266
+msgid "WPSocialite"
+msgstr "WPSocialite"
+
+#: wpsocialite.php:273
+msgid "Mode"
+msgstr "Modo"
+
+#: wpsocialite.php:279
+msgid "Choose the event to which Socialite will activate."
+msgstr "Selecione qual evento ativará o WPSocialite."
+
+#: wpsocialite.php:281
+msgid "Hover"
+msgstr "Ao passar o mouse"
+
+#: wpsocialite.php:282
+msgid "Scroll"
+msgstr "Ao rolar a página"
+
+#: wpsocialite.php:290
+msgid "Apply to Excerpt"
+msgstr "Aplicar ao Resumo"
+
+#: wpsocialite.php:298
+msgid "Display WPSocialite sharing buttons in the excerpt of your posts."
+msgstr "Exibir botões de compartilhamento do WPSocialite no resumo dos posts."
+
+#: wpsocialite.php:306
+msgid "Apply to Single only"
+msgstr "Aplicar ao Conteúdo"
+
+#: wpsocialite.php:314
+msgid "Display WPSocialite sharing buttons only on single posts."
+msgstr ""
+"Exibir botões de compartilhamento do WPSocialite apenas no conteúdo completo."
+
+#: wpsocialite.php:322
+msgid "Style"
+msgstr "Estilo"
+
+#: wpsocialite.php:328
+msgid "Choose the type of socialite style you would like to use."
+msgstr "Selecione o estilo do WPSocialite que você deseja usar."
+
+#: wpsocialite.php:330
+msgid "Large"
+msgstr "Grande"
+
+#: wpsocialite.php:331
+msgid "Small"
+msgstr "Pequeno"
+
+#: wpsocialite.php:339
+msgid "Position"
+msgstr "Posição"
+
+#: wpsocialite.php:345
+#, php-format
+msgid ""
+"Choose where you would like the social icons to appear, before or after the "
+"main content. If set to <strong>Manual</strong>, you can use this code to "
+"place your Social links anywhere you like in your templates files: %s"
+msgstr ""
+"Selecione onde deseja exibir os botões do WPSocialite, antes ou depois do "
+"conteúdo. Caso selecione a opção <strong>Manual</strong>, você deverá "
+"inserir o seguinte código manualmente nos arquivos do seu tema: %s"
+
+#: wpsocialite.php:347
+msgid "Top"
+msgstr "Antes"
+
+#: wpsocialite.php:348
+msgid "Bottom"
+msgstr "Depois"
+
+#: wpsocialite.php:349
+msgid "Top and Bottom"
+msgstr "Antes e Depois"
+
+#: wpsocialite.php:350
+msgid "Manual"
+msgstr "Manual"
+
+#: wpsocialite.php:358
+msgid "Post Types"
+msgstr "Tipos de Post"
+
+#: wpsocialite.php:367
+msgid "Network Options"
+msgstr "Opções de Redes"
+
+#: wpsocialite.php:376
+msgid "Twitter Username"
+msgstr "Usuário do Twitter"
+
+#: wpsocialite.php:414
+msgid "The configuration of the WPSocialite Plugin."
+msgstr "Configurações do plugin WPSocialite."
+
+#: wpsocialite.php:500
+msgid "Select the social networks to display."
+msgstr "Selecione as redes sociais a exibir."
+
+#: wpsocialite.php:518
+msgid "Facebook"
+msgstr "Facebook"
+
+#: wpsocialite.php:520 wpsocialite.php:521
+msgid "Share on Facebook."
+msgstr "Compartilhar no Facebook"
+
+#: wpsocialite.php:525
+msgid "Twitter Share"
+msgstr "Twitter (compartilhar)"
+
+#: wpsocialite.php:527 wpsocialite.php:528 wpsocialite.php:562
+#: wpsocialite.php:563
+msgid "Share on Twitter."
+msgstr "Compartilhar no Twitter"
+
+#: wpsocialite.php:532
+msgid "Google Plus"
+msgstr "Google+"
+
+#: wpsocialite.php:534 wpsocialite.php:535
+msgid "Share on Google+"
+msgstr "Compartilhar no Google+"
+
+#: wpsocialite.php:539
+msgid "Linkedin"
+msgstr "Linkedin"
+
+#: wpsocialite.php:541 wpsocialite.php:542
+msgid "Share on LinkedIn"
+msgstr "Compartilhar no LinkedIn"
+
+#: wpsocialite.php:546
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: wpsocialite.php:548 wpsocialite.php:549
+msgid "Pin It!"
+msgstr "Compartilhar no Pinterest"
+
+#: wpsocialite.php:553
+msgid "StumbleUpon"
+msgstr "StumbleUpon"
+
+#: wpsocialite.php:555 wpsocialite.php:556
+msgid "Share on StumbleUpon"
+msgstr "Compartilhar no StumbleUpon"
+
+#: wpsocialite.php:560
+msgid "Twitter Follow"
+msgstr "Twitter (seguir)"
+
+#: wpsocialite.php:576
+msgid "Settings"
+msgstr "Configurações"
