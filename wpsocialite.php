@@ -4,7 +4,7 @@ Plugin Name: WPSocialite
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 2.1
+Version: 2.3
 Author URI: http://twmorton.com/
 
 =================================================================
@@ -152,8 +152,9 @@ if (!class_exists("wpsocialite")) {
             global $wp_query;
             $post 		= $wp_query->post;
             $id 		= $post->ID;
-            $imagelink 	= wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'full' ); //get the featured image url
+            $imagelink 	= self::wpsocialite_get_image( $id );
             $title 		= trim($post->post_title);
+
             if( $url ){
             	$postlink 	= $url;
             } else {
@@ -161,7 +162,7 @@ if (!class_exists("wpsocialite")) {
             }
 
             $value 		= get_option('wpsocialite_networkoptions');
-            $buttons 	= self::wpsocialite_list_network_options($postlink, $title, $size, $imagelink[0]);
+            $buttons 	= self::wpsocialite_list_network_options($postlink, $title, $size, $imagelink);
 
             $return = '<ul class="wpsocialite social-buttons '.$size.'">';
 
@@ -183,6 +184,33 @@ if (!class_exists("wpsocialite")) {
 
             return $return;
 
+        }
+
+        public function wpsocialite_get_image( $postID ) {
+            //try the featured image first
+            if(has_post_thumbnail()){
+                $imageattachment = wp_get_attachment_image_src( get_post_thumbnail_id( $postID ), 'full' );
+                $imagelink = $imageattachment[0];
+            } else {
+            //No featured image? Try for an attachment.
+                $args = array(
+                    'order'          => 'ASC',
+                    'post_parent'    => $postID,
+                    'post_type'      => 'attachment',
+                    'post_mime_type' => 'image',
+                    'post_status'    => null,
+                    'showposts'      => '1',
+                );
+                $attachments = get_posts($args);
+                if ($attachments) {
+                    foreach ($attachments as $attachment) {
+                        $imagelink = wp_get_attachment_url($attachment->ID, 'full', false, false);
+                    }
+                } else{
+                    $imagelink = null; //if there are no attachments set $imagelink to null
+                }
+            }
+            return $imagelink;
         }
 
         public function wpsocialite_filter_content( $content ){
@@ -247,10 +275,10 @@ if (!class_exists("wpsocialite")) {
                 $section 	= 'wpsocialite',
                 $args       = array(
 	                'name'        => 'wpsocialite_mode',
-	                'description' => 'Choose the event to which Socialite will activate.',
+	                'description' => __('Choose the event to which Socialite will activate.','wpsocialite'),
 	                'options'     => array(
-                        'hover'     => _('Hover'),
-                        'scroll'    => _('Scroll'),
+                        'hover'     => __('Hover','wpsocialite'),
+                        'scroll'    => __('Scroll','wpsocialite'),
 	                ),
                 )
             );
@@ -266,7 +294,7 @@ if (!class_exists("wpsocialite")) {
                 	'name'        => 'wpsocialite_excerpt',
                 	'description' => 'Display WPSocialite sharing buttons in the excerpt of your posts.',
                 	'options'     => array(
-                        '1'	=> _('Display WPSocialite sharing buttons in the excerpt of your posts.'),
+                        '1'	=> __('Display WPSocialite sharing buttons in the excerpt of your posts.','wpsocialite'),
                     ),
                 )
             );
@@ -282,7 +310,7 @@ if (!class_exists("wpsocialite")) {
 	                'name'        => 'wpsocialite_single',
 	                'description' => '',
 	                'options'     => array(
-	                	'1' => _('Display WPSocialite sharing buttons only on single posts.'),
+	                	'1' => __('Display WPSocialite sharing buttons only on single posts.','wpsocialite'),
 	                ),
                 )
             );
@@ -296,10 +324,10 @@ if (!class_exists("wpsocialite")) {
                 $section 	= 'wpsocialite',
                 $args       = array(
                 	'name'        => 'wpsocialite_style',
-                	'description' => 'Choose the type of socialite style you would like to use.',
+                	'description' => __('Choose the type of socialite style you would like to use.','wpsocialite'),
                 	'options'     => array(
-                        'large'	=> _('Large'),
-                        'small'	=> _('Small'),
+                        'large'	=> __('Large','wpsocialite'),
+                        'small'	=> __('Small','wpsocialite'),
                     ),
                 )
             );
@@ -313,12 +341,12 @@ if (!class_exists("wpsocialite")) {
                 $section 	= 'wpsocialite',
                 $args       = array(
                 	'name'        => 'wpsocialite_position',
-                	'description' => sprintf(__('Choose where you would like the social icons to appear, before or after the main content. If set to <strong>Manual</strong>, you can use this code to place your Social links anywhere you like in your templates files: %s','wplazyspotify'),'<pre>&lt;?php wpsocialite_markup(); ?&gt;</pre>'),
+                	'description' => sprintf(__('Choose where you would like the social icons to appear, before or after the main content. If set to <strong>Manual</strong>, you can use this code to place your Social links anywhere you like in your templates files: %s','wpsocialite'),'<pre>&lt;?php wpsocialite_markup(); ?&gt;</pre>'),
                 	'options'     => array(
-                        'before'	=> _('Top'),
-                        'after'		=> _('Bottom'),
-                        'both'		=> _('Top and Bottom'),
-                        'manual'	=> _('Manual'),
+                        'before'	=> __('Top','wpsocialite'),
+                        'after'		=> __('Bottom','wpsocialite'),
+                        'both'		=> __('Top and Bottom','wpsocialite'),
+                        'manual'	=> __('Manual','wpsocialite'),
                     ),
                 )
             );
@@ -352,7 +380,7 @@ if (!class_exists("wpsocialite")) {
                 	'name'        => 'wpsocialite_twitter_username',
                 	'description' => 'Enter your twitter username to enable the twitter follow button.',
                 	'options'     => array(
-                        'twitter_username'	=> _(''),
+                        'twitter_username'	=> __(''),
                     ),
                 )
             );
@@ -519,35 +547,35 @@ if (!class_exists("wpsocialite")) {
 
             $buttons = array(
                 'facebook' => array(
-                    'name' => 'Facebook',
+                    'name' => __('Facebook','wpsocialite'),
                     'slug' => 'facebook',
                     'markup_large' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_facebook_label',__('Share on Facebook.','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://www.facebook.com/sharer.php?u='.$link.'&amp;locale='.$locale.'&amp;t='.$title.'" class="socialite facebook-like" data-lang="'.$locale.'" data-href="'.$link.'" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_facebook_label',__('Share on Facebook.','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'twitter-share' => array(
-                    'name' => 'Twitter Share',
+                    'name' => __('Twitter Share','wpsocialite'),
                     'slug' => 'twitter-share',
                     'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$twitter_title.'" data-url="'.$link.'" data-count="vertical" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$twitter_title.'" data-url="'.$link.'" data-count="horizontal" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'gplus' => array(
-                    'name' => 'Google Plus',
+                    'name' => __('Google Plus','wpsocialite'),
                     'slug' => 'gplus',
                     'markup_large' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="tall" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_googleplus_label',__('Share on Google+','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="https://plus.google.com/share?url='.$link.'" class="socialite googleplus-one" data-size="medium" data-href="'.$link.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_googleplus_label',__('Share on Google+','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'linkedin' => array(
-                    'name' => 'Linkedin',
+                    'name' => __('Linkedin','wpsocialite'),
                     'slug' => 'linkedin',
                     'markup_large' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="top" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_linkedin_label',__('Share on LinkedIn','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$link.'&amp;title='.$title.'" class="socialite linkedin-share" data-url="'.$link.'" data-counter="right" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_linkedin_label',__('Share on LinkedIn','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'pinterest' => array(
-                    'name' => 'Pinterest',
+                    'name' => __('Pinterest','wpsocialite'),
                     'slug' => 'pinterest',
                     'markup_large' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="vertical"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://pinterest.com/pin/create/button/?url='.$link.'&amp;media=' . $image . '&amp;description='.$title.'" class="socialite pinterest-pinit" data-count-layout="horizontal"><span class="vhidden">'.apply_filters('wpsocialite_share_pinterest_label',__('Pin It!','wpsocialite')).'</span></a>',
@@ -555,14 +583,14 @@ if (!class_exists("wpsocialite")) {
 
                 ),
                 'stumbleupon' => array(
-                    'name' => 'StumbleUpon(Beta)',
+                    'name' => __('StumbleUpon','wpsocialite'),
                     'slug' => 'stumbleupon',
                     'markup_large' => '<a href="http://www.stumbleupon.com/submit?url='.$link.'&amp;title='.$title.'" class="socialite stumbleupon-share" data-url="'.$link.'" data-title="'.$title.'" data-layout="5" rel="nofollow"><span class="vhidden">'.apply_filters('wpsocialite_share_stumbleupon_label',__('Share on StumbleUpon','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://www.stumbleupon.com/submit?url='.$link.'&amp;title='.$title.'" class="socialite stumbleupon-share" data-url="'.$link.'" data-title="'.$title.'" data-layout="1" rel="nofollow"><span class="vhidden">'.apply_filters('wpsocialite_share_stumbleupon_label',__('Share on StumbleUpon','wpsocialite')).'</span></a>',
                     'external_file' => plugin_dir_url(__FILE__).'Socialite/extensions/socialite.stumbleupon.js',
                 ),
                 'twitter-follow' => array(
-                    'name' => 'Twitter Follow',
+                    'name' => __('Twitter Follow','wpsocialite'),
                     'slug' => 'twitter-follow',
                     'markup_large' => '<a href="http://twitter.com/'.$twitter_username.'" class="socialite twitter-follow" data-text="'.$twitter_title.'" data-url="'.$link.'" data-size="large" data-width="" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://twitter.com/'.$twitter_username.'" class="socialite twitter-follow" data-text="'.$twitter_title.'" data-url="'.$link.'" data-size="small" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
