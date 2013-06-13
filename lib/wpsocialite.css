@@ -50,3 +50,6 @@
 .wpsocialite.small .pinterest-pinit { background-position: 0 -175px; }
 .wpsocialite.small .stumbleupon-share { background-position: 0 -225px; }
 .wpsocialite.small .twitter-follow.socialite-loaded{ width:200px; }
+
+
+.wpsocialite.no-icon-on-load .socialite{background:none;}

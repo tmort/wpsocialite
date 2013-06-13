@@ -165,7 +165,9 @@ if (!class_exists("wpsocialite")) {
             $value 		= get_option('wpsocialite_networkoptions');
             $buttons 	= self::wpsocialite_list_network_options($postlink, $title, $size, $imagelink);
 
-            $return = '<ul class="wpsocialite social-buttons '.$size.'">';
+            $icon_opt = ( get_option('wpsocialite_iconoptions') == 1 ? ' no-icon-on-load' : '');
+
+            $return = '<ul class="wpsocialite social-buttons '.$size . $icon_opt.'">';
 
 	            foreach ( $buttons as $button ) {
 
@@ -284,6 +286,24 @@ if (!class_exists("wpsocialite")) {
                 )
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_mode' );
+
+
+                        add_settings_field(
+                            $id 		= 'wpsocialite_iconoptions',
+                            $title 		= __('Icon Options','wpsocialite'),
+                            $callback 	= array( $this, 'wpsocialite_checkbox' ),
+                            $page 		= 'discussion',
+                            $section 	= 'wpsocialite',
+                            $args       = array(
+            	                'name'        => 'wpsocialite_iconoptions',
+            	                'description' => __('Do not load icons until scroll or hover action occurs.','wpsocialite'),
+            	                'options'     => array(
+                                    '1'     => __('Do not load icons until scroll or hover action occurs.','wpsocialite'),
+            	                ),
+                            )
+                        );
+                        register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_iconoptions' );
+
 
             add_settings_field(
                 $id 		= 'wpsocialite_excerpt',
