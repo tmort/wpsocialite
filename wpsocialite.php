@@ -112,8 +112,11 @@ if (!class_exists("wpsocialite")) {
             $fb_locales = array('af_ZA','ar_AR','az_AZ','be_BY','bg_BG','bn_IN','bs_BA','ca_ES','cs_CZ','cy_GB','da_DK','de_DE','el_GR','en_GB','en_US','eo_EO','es_ES','es_LA','et_EE','eu_ES','fa_IR','fi_FI','fo_FO','fr_CA','fr_FR','fy_NL','ga_IE','gl_ES','he_IL','hi_IN','hr_HR','hu_HU','hy_AM','id_ID','is_IS','it_IT','ja_JP','ka_GE','km_KH','ko_KR','ku_TR','la_VA','lt_LT','lv_LV','mk_MK','ml_IN','ms_MY','nb_NO','ne_NP','nl_NL','nn_NO','pa_IN','pl_PL','ps_AF','pt_BR','pt_PT','ro_RO','ru_RU','sk_SK','sl_SI','sq_AL','sr_RS','sv_SE','sw_KE','ta_IN','te_IN','th_TH','tl_PH','tr_TR','uk_UA','vi_VN','zh_CN','zh_HK','zh_TW');
             $tw_locales = array('en','fr','de','it','es','ko','ja');
             $gp_locales = array('af','am','ar','eu','bn','bg','ca','zh-HK','zh-CN','zh-TW','hr','cs','da','nl','en-GB','en-US','et','fil','fi','fr','fr-CA','gl','de','el','gu','iw','hi','hu','is','id','it','ja','kn','ko','lb','lt','ms','ml','mr','no','fa','pl','pt-BR','pt-PT','ro','ru','sr','sk','sl','es','es-419','sw','sv','ta','te','th','tr','uk','ur','vi','zu');
-
-            $fb_locale = (in_array($c5,$fb_locales))? $c5 : 'en_US';
+			
+			
+			$fb_locale = (in_array($c5,$fb_locales))? $c5 : 'en_US';
+			if($c5 == 'fi')
+				$fb_locale = 'fi_FI';
             $tw_locale = (in_array($c2,$tw_locales))? $c2 : 'en';
             $gp_locale = (in_array($c5,$gp_locales))? str_replace('_', '-', $c5) : (in_array($c2,$gp_locales))? $c2 : 'en';
 
@@ -386,12 +389,30 @@ if (!class_exists("wpsocialite")) {
                 )
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_twitter_username' );
+			
+			add_settings_field(
+                $id 		= 'wpsocialite_twitter_username_share',
+                $title 		= __('Twitter Username (Share)','wpsocialite'),
+                $callback 	= array( $this, 'wpsocialite_text_input' ),
+                $page 		= 'discussion',
+                $section 	= 'wpsocialite',
+                $args       = array(
+	                'name'        => 'wpsocialite_twitter_username_share',
+	                'description' => '',
+	                'options'     => array(
+                        'twitter_data_via'	=> __(''),
+                    ),
+                )
+            );
+			
+			register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_twitter_username_share' );
 
         }
 
         public function admin_footer() {
         	echo '<script type="text/javascript">
 				jQuery(document).ready(function($) {
+				    
 				    var twitterusername = $("#wpsocialite_twitter_username").closest("tr");
 				    var twitterfollow = $("input:checkbox[name=\'wpsocialite_networkoptions[twitter-follow]\']");
 				    twitterusername.hide();
@@ -404,6 +425,21 @@ if (!class_exists("wpsocialite")) {
 			    			twitterusername.show();
 			    		} else {
 			    			twitterusername.hide();
+			    		}
+			    	});
+					
+					var twitterusernameshare = $("#wpsocialite_twitter_username_share").closest("tr");
+				    var twittershare = $("input:checkbox[name=\'wpsocialite_networkoptions[twitter-share]\']");
+				    twitterusernameshare.hide();
+
+				    if( twittershare.is(":checked") ){
+						twitterusernameshare.show();
+				    }
+			    	twittershare.on(\'change\', function() {
+			    		if(twittershare.is(":checked")){
+			    			twitterusernameshare.show();
+			    		} else {
+			    			twitterusernameshare.hide();
 			    		}
 			    	});
 				});
@@ -524,8 +560,8 @@ if (!class_exists("wpsocialite")) {
                 'twitter-share' => array(
                     'name' => __('Twitter Share','wpsocialite'),
                     'slug' => 'twitter-share',
-                    'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$twitter_title.'" data-url="'.$link.'" data-count="vertical" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
-                    'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$twitter_title.'" data-url="'.$link.'" data-count="horizontal" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
+                    'markup_large' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$twitter_title.'" data-url="'.$link.'" data-count="vertical" data-lang="'.$locale.'" data-via="'.get_option('wpsocialite_twitter_username_share').'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
+                    'markup_small' => '<a href="http://twitter.com/share" class="socialite twitter-share" data-text="'.$twitter_title.'" data-url="'.$link.'" data-count="horizontal" data-lang="'.$locale.'" data-via="'.get_option('wpsocialite_twitter_username_share').'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'external_file' => false
                 ),
                 'gplus' => array(
