@@ -1,0 +1,187 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPSocialite\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-16 00:16+0200\n"
+"PO-Revision-Date: 2013-07-16 00:16+0200\n"
+"Last-Translator: Rafael Funchal <rafaelfunchal@gmail.com>\n"
+"Language-Team: Timo Leiniö <timo@wpopas.fi>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: wpsocialite.php:269
+msgid "WPSocialite"
+msgstr "WPSocialite"
+
+#: wpsocialite.php:276
+msgid "Mode"
+msgstr "Tila"
+
+#: wpsocialite.php:282
+msgid "Choose the event to which Socialite will activate."
+msgstr "Valitse milloin jakonapit aktivoidaan."
+
+#: wpsocialite.php:284
+msgid "Hover"
+msgstr "Kun nappeihin osuu hiirellä"
+
+#: wpsocialite.php:285
+msgid "Scroll"
+msgstr "Kun sivua vieritetään"
+
+#: wpsocialite.php:293
+msgid "Apply to Excerpt"
+msgstr "Ote"
+
+#: wpsocialite.php:301
+msgid "Display WPSocialite sharing buttons in the excerpt of your posts."
+msgstr "Näytä jakonapit artikkelin otteen yhteydessä."
+
+#: wpsocialite.php:309
+msgid "Apply to Single only"
+msgstr "Yksittäiset artikkelit"
+
+#: wpsocialite.php:317
+msgid "Display WPSocialite sharing buttons only on single posts."
+msgstr "Näytä jakonapit vain yksittäisen artikkelin yhteydessä."
+
+#: wpsocialite.php:325
+msgid "Style"
+msgstr "Tyyli"
+
+#: wpsocialite.php:331
+msgid "Choose the type of socialite style you would like to use."
+msgstr "Valitse jakonappien tyyli."
+
+#: wpsocialite.php:333
+msgid "Large"
+msgstr "Iso"
+
+#: wpsocialite.php:334
+msgid "Small"
+msgstr "Pieni"
+
+#: wpsocialite.php:342
+msgid "Position"
+msgstr "Sijainti"
+
+#: wpsocialite.php:348
+#, php-format
+msgid ""
+"Choose where you would like the social icons to appear, before or after the "
+"main content. If set to <strong>Manual</strong>, you can use this code to "
+"place your Social links anywhere you like in your templates files: %s"
+msgstr ""
+"Valitse, mihin napit sijoitetaan. Jos valitaan <strong>manuaalinen</strong>, "
+"tällöin napit voi sijoittaa koodiin seuraavalla funktiolla: %s"
+
+#: wpsocialite.php:350
+msgid "Top"
+msgstr "Ylös"
+
+#: wpsocialite.php:351
+msgid "Bottom"
+msgstr "Alas"
+
+#: wpsocialite.php:352
+msgid "Top and Bottom"
+msgstr "Ylös ja alas"
+
+#: wpsocialite.php:353
+msgid "Manual"
+msgstr "Manuaalinen"
+
+#: wpsocialite.php:361
+msgid "Post Types"
+msgstr "Artikkelityypit"
+
+#: wpsocialite.php:370
+msgid "Network Options"
+msgstr "Verkostovaihtoehdot"
+
+#: wpsocialite.php:379
+msgid "Twitter Username"
+msgstr "Twitter-käyttäjätunnus"
+
+#: wpsocialite.php:395
+msgid "Twitter Username (Share)"
+msgstr "Twitter-käyttäjätunnus (jako)"
+
+#: wpsocialite.php:434
+msgid "The configuration of the WPSocialite Plugin."
+msgstr "WPSocialite-asetukset"
+
+#: wpsocialite.php:520
+msgid "Select the social networks to display."
+msgstr "Sosiaaliset verkostot, jotka näytetään."
+
+#: wpsocialite.php:538
+msgid "Facebook"
+msgstr "Facebook"
+
+#: wpsocialite.php:540 wpsocialite.php:541
+msgid "Share on Facebook."
+msgstr "Jaa Facebookissa"
+
+#: wpsocialite.php:545
+msgid "Twitter Share"
+msgstr "Twitter jako"
+
+#: wpsocialite.php:547 wpsocialite.php:548 wpsocialite.php:582
+#: wpsocialite.php:583
+msgid "Share on Twitter."
+msgstr "Jaa Twitterissä"
+
+#: wpsocialite.php:552
+msgid "Google Plus"
+msgstr "Google Plus"
+
+#: wpsocialite.php:554 wpsocialite.php:555
+msgid "Share on Google+"
+msgstr "Jaa Google+"
+
+#: wpsocialite.php:559
+msgid "Linkedin"
+msgstr "Linkedin"
+
+#: wpsocialite.php:561 wpsocialite.php:562
+msgid "Share on LinkedIn"
+msgstr "Jaa LinkedInissä"
+
+#: wpsocialite.php:566
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: wpsocialite.php:568 wpsocialite.php:569
+msgid "Pin It!"
+msgstr "Pinnaa!"
+
+#: wpsocialite.php:573
+msgid "StumbleUpon"
+msgstr "StumbleUpon"
+
+#: wpsocialite.php:575 wpsocialite.php:576
+msgid "Share on StumbleUpon"
+msgstr "Jaa StumbleUponissa"
+
+#: wpsocialite.php:580
+msgid "Twitter Follow"
+msgstr "Twitter seuraa"
+
+#: wpsocialite.php:596
+msgid "Settings"
+msgstr "Asetukset"
+
+#, fuzzy
+#~ msgid "Twitter data-via"
+#~ msgstr "Twitter jako"
