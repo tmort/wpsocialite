@@ -4,7 +4,7 @@ Plugin Name: WPSocialite
 Plugin URI: http://wordpress.org/extend/plugins/wpsocialite/
 Description: No one likes long load times! Yet we all want to be able to share our content via Facebook, Twitter, and all other social networks. These take a long time to load. Paradox? Not anymore! With WPSocialite (utilizing David Bushnell's amazing SocialiteJS plugin [http://www.socialitejs.com/]) we can manage the loading process of our social sharing links. Load them on hover, on page scroll, and more!
 Author: Tom Morton
-Version: 2.3
+Version: 2.4
 Author URI: http://twmorton.com/
 
 =================================================================
@@ -387,22 +387,6 @@ if (!class_exists("wpsocialite")) {
             );
             register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_twitter_username' );
 
-            add_settings_field(
-                $id         = 'wpsocialite_vkontakte_apiId',
-                $title      = __('Vkontakte AppID','wpsocialite'),
-                $callback   = array( $this, 'wpsocialite_text_input' ),
-                $page       = 'discussion',
-                $section    = 'wpsocialite',
-                $args       = array(
-                    'name'        => 'wpsocialite_vkontakte_apiId',
-                    'description' => 'In order to use the vkontakte socialite settings you will need to register your site as an application on vk.com.',
-                    'options'     => array(
-                        'vkontakte_appid'  => _(''),
-                    ),
-                )
-            );
-            register_setting( $option_group = 'discussion', $option_name = 'wpsocialite_vkontakte_apiId' );
-
         }
 
         public function admin_footer() {
@@ -596,14 +580,7 @@ if (!class_exists("wpsocialite")) {
                     'markup_large' => '<a href="http://twitter.com/'.$twitter_username.'" class="socialite twitter-follow" data-text="'.$twitter_title.'" data-url="'.$link.'" data-size="large" data-width="" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'markup_small' => '<a href="http://twitter.com/'.$twitter_username.'" class="socialite twitter-follow" data-text="'.$twitter_title.'" data-url="'.$link.'" data-size="small" data-lang="'.$locale.'" data-via="" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_twitter_label',__('Share on Twitter.','wpsocialite')).'</span></a>',
                     'external_file' => false
-                ),
-                'vkontakte-like' => array(
-                    'name' => 'Vkontakte Like',
-                    'slug' => 'vkontakte-like',
-                    'markup_large' => '<a href="http://vkontakte.ru/share.php?url='.$link.'" class="socialite vkontakte-like" data-title="'.$title.'" data-url="'.$link.'" data-size="large" data-width="" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_vkontakte_label',__('Share on Vkontakte.','wpsocialite')).'</span></a>',
-                    'markup_small' => '<a href="http://vkontakte.ru/share.php?url='.$link.'" class="socialite vkontakte-like" data-title="'.$title.'" data-url="'.$link.'" data-size="small" data-width="" data-lang="'.$locale.'" rel="nofollow" target="_blank"><span class="vhidden">'.apply_filters('wpsocialite_share_vkontakte_label',__('Share on Vkontakte.','wpsocialite')).'</span></a>',
-                    'external_file' => plugin_dir_url(__FILE__).'Socialite/extensions/socialite.vkontakte.js',
-                ),
+                )
             );
 
             return $buttons;
