@@ -42,10 +42,6 @@ if (!class_exists("wpsocialite")) {
         public static $instance;
         private $options;
 
-        public function WPSocialite() {
-            $this->__construct();
-        }
-
         function __construct() {
             self::$instance = $this;
 
