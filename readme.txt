@@ -4,7 +4,7 @@ Donate link:
 Tags: social networking, sharing links, lazy loading, lazy loading social links, social links, tm3909, wpinit
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 2.4
+Stable tag: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ Please note, when using this method if you are loading any social networks with 
 
 == Changelog ==
 
+= 2.4.1 October 10, 2013 =
+* Fixed issue with Twitter Username settings area not displaying.
+
 = 2.4 September 3, 2013 =
 * Added twitter via option. Various bug fixes.
 
@@ -142,6 +145,9 @@ Please note, when using this method if you are loading any social networks with 
 
 
 == Upgrade Notice ==
+
+= 2.4.1 October 10, 2013 =
+* Fixed issue with Twitter Username settings area not displaying.
 
 = 2.4 September 3, 2013 =
 * Added twitter via option. Various bug fixes.
