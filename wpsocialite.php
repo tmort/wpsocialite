@@ -392,20 +392,6 @@ if (!class_exists("wpsocialite")) {
         public function admin_footer() {
             echo '<script type="text/javascript">
                 jQuery(document).ready(function($) {
-                    var twitterusername = $("#wpsocialite_twitter_username").closest("tr");
-                    var twitterfollow = $("input:checkbox[name=\'wpsocialite_networkoptions[twitter-follow]\']");
-                    twitterusername.hide();
-
-                    if( twitterfollow.is(":checked") ){
-                        twitterusername.show();
-                    }
-                    twitterfollow.on(\'change\', function() {
-                        if(twitterfollow.is(":checked")){
-                            twitterusername.show();
-                        } else {
-                            twitterusername.hide();
-                        }
-                    });
 
                     var vkontakte_appid_input = $("#wpsocialite_vkontakte_apiId").closest("tr");
                     var vkontaktelike = $("input:checkbox[name=\'wpsocialite_networkoptions[vkontakte-like]\']");
