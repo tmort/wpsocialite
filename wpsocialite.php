@@ -42,10 +42,6 @@ if (!class_exists("wpsocialite")) {
         public static $instance;
         private $options;
 
-        public function WPSocialite() {
-            $this->__construct();
-        }
-
         function __construct() {
             self::$instance = $this;
 
@@ -68,6 +64,15 @@ if (!class_exists("wpsocialite")) {
 
         } // __construct
 
+        public static function get_instance() {
+
+            if( is_null(self::$instance) ) {
+                $class = __CLASS__;
+                self::$instance = new $class;
+            }
+            return self::$instance;
+        } 
+
         public function init() {
 
             load_plugin_textdomain('wpsocialite', false, dirname( plugin_basename(__FILE__) ).'/lang/');
@@ -77,7 +82,7 @@ if (!class_exists("wpsocialite")) {
                 wp_enqueue_script('socialite-lib', 	plugin_dir_url(__FILE__).'Socialite/socialite.min.js', 	array('jquery'), 		'2.0', true);
                 wp_enqueue_script('wpsocialite', 	plugin_dir_url(__FILE__).'wpsocialite.js', 				array('socialite-lib'), '1.0', true);
 
-                $scripts = self::wpsocialite_list_network_options(null, null, null, null);
+                $scripts = $this->wpsocialite_list_network_options(null, null, null, null);
 
                 $value = get_option('wpsocialite_networkoptions');
 
@@ -161,7 +166,7 @@ if (!class_exists("wpsocialite")) {
             }
 
             $value 		= get_option('wpsocialite_networkoptions');
-            $buttons 	= self::wpsocialite_list_network_options($postlink, $title, $size, $imagelink[0]);
+            $buttons 	= $this->wpsocialite_list_network_options($postlink, $title, $size, $imagelink[0]);
 
             $return = '<ul class="wpsocialite social-buttons '.$size.'">';
 
@@ -603,7 +608,7 @@ new wpsocialite;
 =================================================================
 */
 function get_wpsocialite_markup($args = array()){
-    $wpsocialite = wpsocialite::wpsocialite_markup($args);
+    $wpsocialite = wpsocialite::get_instance()->wpsocialite_markup($args);
     return $wpsocialite;
 }
 function wpsocialite_markup($args = array()){
